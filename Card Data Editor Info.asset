@@ -15,7 +15,7 @@ MonoBehaviour:
   ModName: CardDataEditor
   Author: AALUND13
   Version: 1.0.0
-  WebsiteURL: 
+  WebsiteURL: https://github.com/AALUND13/CardDataEditor
   Description: Card Data Editor is a mod that allows you to edit card properties such
     as Rarity, Theme, Card Amount, and more.
   BeforeBuildCommand: 
