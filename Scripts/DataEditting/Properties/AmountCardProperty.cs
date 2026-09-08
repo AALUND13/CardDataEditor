@@ -46,7 +46,7 @@ namespace CardDataEditor.DataEditting.Properties {
             int result;
 
             if (classObject == null) {
-                result = Card.allowMultiple ? 1 : 0;
+                result = Card.allowMultiple ? 0 : 1;
             } else {
                 result = classObject.cap;
             }
