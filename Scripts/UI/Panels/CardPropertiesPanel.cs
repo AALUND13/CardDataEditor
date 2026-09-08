@@ -31,14 +31,14 @@ namespace CardDataEditor.UI.Panels {
                         CategoryToPropertiesMap.Add(propertyCategory, new List<GameObject>());
                     }
 
-                    GameObject propertyUIObj = property.CreateUIProperty(category.GetEntry(property.GetPropertyName()));
+                    var propertyUIObj = property.CreateUIProperty(category.GetEntry(property.GetPropertyName()));
                     CategoryToPropertiesMap[propertyCategory].Add(propertyUIObj);
                 }
             }
 
             foreach (var propertiesCategory in CategoryToPropertiesMap) {
-                GameObject headerObj = GameObject.Instantiate(HeaderText);
-                TextMeshProUGUI headerText = headerObj.GetComponentInChildren<TextMeshProUGUI>();
+                var headerObj = GameObject.Instantiate(HeaderText);
+                var headerText = headerObj.GetComponentInChildren<TextMeshProUGUI>();
 
                 headerText.text = propertiesCategory.Key;
                 headerObj.transform.SetParent(PropertiesHolder);

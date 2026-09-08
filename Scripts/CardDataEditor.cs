@@ -4,7 +4,7 @@ using BepInEx.Logging;
 using CardDataEditor.DataEditting.Config;
 using CardDataEditor.DataEditting.Registries;
 using CardDataEditor.UI;
-using CardDataEditor.UI.Registries;
+using CardDataEditor.UI.Properites;
 using CardDataEditor.Utils.Debug;
 using HarmonyLib;
 using Photon.Pun;
@@ -58,11 +58,11 @@ namespace CardDataEditor {
             CardDataEditorConfig.RegisterMenu(ModConfig);
             PropertyRegistry.RegisterDefaultProperties();
             UIPropetyRegsitry.Init();
-            
+
             this.ExecuteAfterFrames(60, () => {
                 CardOptionRegistry.RegisterAllCardOptions();
                 CardOptionsConfigManager.RegisterConfig();
-                CardDataEditorUI.Instance.Init(CardOptionsConfigManager.Config);
+                CardDataEditorMenu.Instance.Init(CardOptionsConfigManager.Config);
             });
 
             Unbound.RegisterHandshake(ModId, OnHandShakeCompleted);
@@ -72,7 +72,7 @@ namespace CardDataEditor {
 
 
         private void CreateCardDataEditorCanvas() {
-            if (CardDataEditorUI.Instance != null) return;
+            if (CardDataEditorMenu.Instance != null) return;
 
             GameObject UIManagerCanvas = Instantiate(Assets.LoadAsset<GameObject>("Card Data Editor Canvas"));
             Camera mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();

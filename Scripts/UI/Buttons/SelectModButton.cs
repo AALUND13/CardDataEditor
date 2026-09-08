@@ -15,12 +15,14 @@ namespace CardDataEditor.UI.Buttons {
         public Color SelectionColor = Color.white * 0.75f;
         public Color DeselectionColor = Color.white * 0.45f;
 
+
         private Coroutine colorAnimation;
 
 
         private void Awake() {
             SelectionGraphic.color = DeselectionColor;
         }
+
 
         public void Init(string modCategory) {
             ModText.text = modCategory;

@@ -22,14 +22,16 @@ namespace CardDataEditor.UI {
         public GameObject ButtonContents;
         public GameObject CategoryContents;
 
+        // Inspector Hidden Properties
         public UICategory ParentCategory { get; private set; }
-        public bool IsOpened {  get; private set; } = false;
+        public bool IsOpened { get; private set; }
 
         internal ModCardsCategory modCardsCategory;
 
+
         public CardButton CreateButton(CardOptionsConfigCategory category) {
-            GameObject uiCardOptionsObject = GameObject.Instantiate(UICardOptionsPrefab).gameObject;
-            CardButton uiCardOptions = uiCardOptionsObject.GetComponent<CardButton>();
+            var uiCardOptionsObject = GameObject.Instantiate(UICardOptionsPrefab).gameObject;
+            var uiCardOptions = uiCardOptionsObject.GetComponent<CardButton>();
 
             uiCardOptionsObject.transform.SetParent(ButtonContents.transform);
             uiCardOptionsObject.transform.localScale = Vector3.one;
@@ -40,8 +42,8 @@ namespace CardDataEditor.UI {
         }
 
         public UICategory CreateCategory(string categoryName) {
-            GameObject uiCategoryObject = GameObject.Instantiate(modCardsCategory.UICategoryPrefab).gameObject;
-            UICategory uICategory = uiCategoryObject.GetComponent<UICategory>();
+            var uiCategoryObject = GameObject.Instantiate(modCardsCategory.UICategoryPrefab).gameObject;
+            var uICategory = uiCategoryObject.GetComponent<UICategory>();
 
             uiCategoryObject.transform.SetParent(CategoryContents.transform);
             uiCategoryObject.transform.localScale = Vector3.one;
@@ -52,6 +54,7 @@ namespace CardDataEditor.UI {
             CategoryContents.SetActive(true);
             return uICategory;
         }
+
 
         public void ToggleCategory() {
             if (IsOpened) CloseCategory();

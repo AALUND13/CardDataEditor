@@ -16,15 +16,18 @@ namespace CardDataEditor.UI.Panels {
         public Transform CategoryButtonContents;
         public Transform CardsButtonContents;
 
+
         public readonly List<CardButton> CardButtons = new List<CardButton>();
-        public static List<UICategory> CategoryToCollapses = new List<UICategory>();
+        public readonly List<UICategory> CategoryToCollapses = new List<UICategory>();
 
         private readonly Dictionary<string, UICategory> Subcategories = new Dictionary<string, UICategory>();
         private readonly Dictionary<CardButton, UICategory> ButtonsToCategory = new Dictionary<CardButton, UICategory>();
 
+
         private void Awake() {
             gameObject.SetActive(false);
         }
+
 
         public void SearchCards(string searchValue) {
             foreach (UICategory categoryToCollapse in CategoryToCollapses) {
@@ -38,9 +41,12 @@ namespace CardDataEditor.UI.Panels {
 
                 cardButton.gameObject.SetActive(matches);
                 if (matches && !searchValue.IsNullOrWhiteSpace()) {
-                    List<UICategory> categories = GetCardCategories(cardButton);
+                    var categories = GetCardCategories(cardButton);
                     foreach (UICategory category in categories) {
-                        if (CategoryToCollapses.Contains(category) || category.IsOpened) continue;
+                        if (CategoryToCollapses.Contains(category) || category.IsOpened) {
+                            continue;
+                        }
+
                         CategoryToCollapses.Add(category);
                         category.OpenCategory();
                     }
@@ -52,13 +58,14 @@ namespace CardDataEditor.UI.Panels {
         public void CreateCardButton(CardOptionsConfigCategory category) {
             string subcategory = ToggleCardsCategorieInterface.GetCardSubcategory(category.CardOptions.Card);
             if (!subcategory.IsNullOrWhiteSpace()) {
-                UICategory uICategory = GetOrCreateCategory(subcategory);
-                CardButton cardButton = uICategory.CreateButton(category);
+                var uICategory = GetOrCreateCategory(subcategory);
+                var cardButton = uICategory.CreateButton(category);
+
                 CardButtons.Add(cardButton);
                 ButtonsToCategory.Add(cardButton, uICategory);
             } else {
-                GameObject cardButtonObject = GameObject.Instantiate(UICardOptionsPrefab).gameObject;
-                CardButton cardButton = cardButtonObject.GetComponent<CardButton>();
+                var cardButtonObject = GameObject.Instantiate(UICardOptionsPrefab).gameObject;
+                var cardButton = cardButtonObject.GetComponent<CardButton>();
 
                 cardButtonObject.transform.SetParent(CardsButtonContents);
                 cardButtonObject.transform.localScale = Vector3.one;
@@ -68,8 +75,8 @@ namespace CardDataEditor.UI.Panels {
         }
 
         public UICategory CreateCategory(string categoryName) {
-            GameObject uiCategoryObject = GameObject.Instantiate(UICategoryPrefab).gameObject;
-            UICategory uiCategory = uiCategoryObject.GetComponent<UICategory>();
+            var uiCategoryObject = GameObject.Instantiate(UICategoryPrefab).gameObject;
+            var uiCategory = uiCategoryObject.GetComponent<UICategory>();
 
             uiCategoryObject.transform.SetParent(CategoryButtonContents);
             uiCategoryObject.transform.localScale = Vector3.one;
@@ -80,9 +87,9 @@ namespace CardDataEditor.UI.Panels {
         }
 
         public List<UICategory> GetCardCategories(CardButton cardButton) {
-            List<UICategory> categories = new List<UICategory>();
+            var categories = new List<UICategory>();
             if (ButtonsToCategory.TryGetValue(cardButton, out UICategory uICategory)) {
-                UICategory currentCategory = uICategory;
+                var currentCategory = uICategory;
                 while (currentCategory != null) {
                     categories.Add(currentCategory);
                     currentCategory = currentCategory.ParentCategory;

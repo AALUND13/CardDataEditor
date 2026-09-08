@@ -1,11 +1,9 @@
 ﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using CardDataEditor.DataEditting.Config;
 using CardDataEditor.UI.Properites;
-using CardDataEditor.UI.Registries;
 using ClassesManagerReborn;
 using ClassesManagerReborn.Util;
 using System.Linq;
-using TMPro;
 using UnboundLib;
 using UnityEngine;
 
@@ -16,7 +14,7 @@ namespace CardDataEditor.DataEditting.Properties {
         private CardType savedCardType = CardType.NonClassCard;
 
         public DetachClassProperty(CardInfo card) : base(card) {
-            ClassObject classObject = ClassesRegistry.Get(Card);
+            var classObject = ClassesRegistry.Get(Card);
             if (classObject != null) {
                 savedRequiredClassesTree = classObject.RequiredClassesTree;
                 savedCardType = classObject.type;
@@ -25,7 +23,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
-            GameObject propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
+            var propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
             propertyUI.GetComponent<UIBoolProperty>().Init((CardPropertyConfigEntry<bool>)entry);
             return propertyUI;
         }
@@ -41,15 +39,14 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override void ApplyPropertyToPreviewCard(GameObject cardObject, CardInfo cardInfo) {
-            ClassObject classObject = ClassesRegistry.Get(Card);
-
-            ClassNameMono classNameMono = cardObject.GetComponent<ClassNameMono>();
+            var classObject = ClassesRegistry.Get(Card);
+            var classNameMono = cardObject.GetComponent<ClassNameMono>();
             if (classObject == null || classNameMono == null) return;
 
-            RectTransform bottomLeftRect = cardObject.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(x => x.name == "EdgePart (1)");
-            Transform modNameObj = bottomLeftRect.transform.Find("ExtraCardText(Clone)");
+            var bottomLeftRect = cardObject.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(x => x.name == "EdgePart (1)");
+            var modNameObj = bottomLeftRect.transform.Find("ExtraCardText(Clone)");
 
-            if(GetPropertyTyped()) {
+            if (GetPropertyTyped()) {
                 classNameMono.enabled = false;
                 if (modNameObj != null) modNameObj.gameObject.SetActive(false);
             } else {
@@ -68,17 +65,17 @@ namespace CardDataEditor.DataEditting.Properties {
         }
 
         public override void ApplyProperty(bool value) {
-            ClassObject classObject = ClassesRegistry.Get(Card);
+            var classObject = ClassesRegistry.Get(Card);
             if (classObject == null) return;
 
-            ClassNameMono className = Card.GetComponent<ClassNameMono>();
+            var className = Card.GetComponent<ClassNameMono>();
             if (value) {
                 if (className != null) className.enabled = false;
                 classObject.RequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
                 classObject.SetPropertyValue("type", CardType.NonClassCard);
                 haveBeenDetach = true;
             } else {
-                if(className != null) className.enabled = true;
+                if (className != null) className.enabled = true;
                 classObject.RequiredClassesTree = savedRequiredClassesTree;
                 classObject.SetPropertyValue("type", savedCardType);
                 haveBeenDetach = false;

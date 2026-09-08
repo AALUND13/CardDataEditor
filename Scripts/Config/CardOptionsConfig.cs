@@ -12,13 +12,15 @@ namespace CardDataEditor.DataEditting.Config {
 
         private const string ConfigFileName = "CardOptions.bin";
         private const string ConfigFolderName = "CardDataEditor";
-        
-        private static string ConfigPath => Path.Combine(Paths.ConfigPath, ConfigFolderName, ConfigFileName);
-        public static bool DoesConfigFileExists => File.Exists(ConfigPath);
+
+        private static string ConfigPath 
+            => Path.Combine(Paths.ConfigPath, ConfigFolderName, ConfigFileName);
+        public static bool DoesConfigFileExists 
+            => File.Exists(ConfigPath);
 
         public bool SaveOnChange = true;
-        
         public event Action<CardOptionsConfigCategory, CardPropertyConfigEntry> CategoryChanged;
+
 
         public CardOptionsConfigCategory AddCategory(CardOptions cardOptions) {
             var category = new CardOptionsConfigCategory(cardOptions, this);
@@ -40,7 +42,7 @@ namespace CardDataEditor.DataEditting.Config {
 
             using (var stream = new FileStream(ConfigPath, FileMode.Create, FileAccess.Write, FileShare.None))
             using (var writer = new BinaryWriter(stream)) {
-                CardOptionsConfigCategory[] nonDefaultCategories = Categories
+                var nonDefaultCategories = Categories
                     .Where(category => !category.IsDefaultValues)
                     .ToArray();
 

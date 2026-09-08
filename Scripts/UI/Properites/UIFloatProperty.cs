@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace CardDataEditor.UI.Properites {
     public class UIFloatProperty : MonoBehaviour {
+        [Header("References")]
         public TextMeshProUGUI PropertyNameText;
         public TMP_InputField PropertyInputField;
 
+
         private CardPropertyConfigEntry<float> cardProperty;
+
 
         public void Init(CardPropertyConfigEntry<float> propertyConfigEntry) {
             cardProperty = propertyConfigEntry;

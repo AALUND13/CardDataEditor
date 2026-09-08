@@ -60,9 +60,10 @@ namespace CardDataEditor.UI.Buttons {
 
         private Color GetCardRarityColor(CardInfo card) {
             float multiplier = IsSelected ? SelectMultiplier : DeselectMultiplier;
-            Color color = RarityUtils.GetRarityData(card.rarity).color * multiplier;
-
+            
+            var color = RarityUtils.GetRarityData(card.rarity).color * multiplier;
             float max = Mathf.Max(color.r, color.g, color.b);
+
             return (max < 0.20 ? (Color.white * 0.70f) : color) * multiplier;
         }
     }

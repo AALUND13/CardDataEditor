@@ -31,17 +31,17 @@ namespace CardDataEditor.Scripts.Migration {
                 if (int.TryParse(entry.Value, out int value)) {
                     if (value == -1) continue;
 
-                    CardInfo cardInfo = ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(entry.Key.Key);
-                    CardOptionsConfigCategory cardOptions = configFile.FindCategory(cardInfo.name);
-                    CardPropertyConfigEntry<CardThemeColor.CardThemeColorType> rarityProperty = cardOptions.GetEntry<CardThemeColor.CardThemeColorType>();
+                    var cardInfo = ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(entry.Key.Key);
+                    var cardOptions = configFile.FindCategory(cardInfo.name);
+                    var rarityProperty = cardOptions.GetEntry<CardThemeColor.CardThemeColorType>();
 
                     // Since other mods pqtch "GetValues" to return a custom enum values, and Enum.Parse doesn't work with that, we have to use GetValues and manually find the value.
                     bool isValidRarity = Enum.GetValues(typeof(CardThemeColor.CardThemeColorType))
                         .Cast<CardThemeColor.CardThemeColorType>()
                         .Any(t => (int)t == value);
-                    if (!isValidRarity) continue;
 
-                    CardThemeColor.CardThemeColorType raity = Enum.GetValues(typeof(CardThemeColor.CardThemeColorType))
+                    if (!isValidRarity) continue;
+                    var raity = Enum.GetValues(typeof(CardThemeColor.CardThemeColorType))
                             .Cast<CardThemeColor.CardThemeColorType>()
                             .FirstOrDefault(t => (int)t == value);
 

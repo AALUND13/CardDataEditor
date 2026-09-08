@@ -1,9 +1,7 @@
 ﻿using CardDataEditor.DataEditting.Config;
 using CardDataEditor.UI.Properites;
-using CardDataEditor.UI.Registries;
 using RarityLib.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,17 +11,17 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
-            GameObject propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIEnumPropertyPrefab.gameObject);
-            UIPropertyDropdown uIPropertyDropdown = propertyUI.GetComponent<UIPropertyDropdown>();
-            
-            CardInfo.Rarity[] rarities = Enum.GetValues(typeof(CardInfo.Rarity)).Cast<CardInfo.Rarity>().ToArray();
-            UIPropertyDropdown.DropdownItem[] items = rarities.Select(r => new UIPropertyDropdown.DropdownItem(
+            var propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIEnumPropertyPrefab.gameObject);
+            var uIPropertyDropdown = propertyUI.GetComponent<UIPropertyDropdown>();
+
+            var rarities = Enum.GetValues(typeof(CardInfo.Rarity)).Cast<CardInfo.Rarity>().ToArray();
+            var items = rarities.Select(r => new UIPropertyDropdown.DropdownItem(
                 $"<color=#{ColorUtility.ToHtmlStringRGB(GetCardRarityColor(r))}>{r.ToString().ToUpper()}{(r.ToString() == entry.DefaultValue.ToString() ? " (Default)" : "")}",
                 r.ToString()
             )).ToArray();
 
-            UIPropertyDropdown.DropdownItem selectedItem = items.First(i => i.value == entry.Value.ToString());
-            UIPropertyDropdown.DropdownItem defaultItem = items.First(i => i.value == entry.DefaultValue.ToString());
+            var selectedItem = items.First(i => i.value == entry.Value.ToString());
+            var defaultItem = items.First(i => i.value == entry.DefaultValue.ToString());
 
             uIPropertyDropdown.Init(GetPropertyName(), items, selectedItem, defaultItem);
             uIPropertyDropdown.OnValueChanged += (UIPropertyDropdown.DropdownItem dropdownItem) => {
@@ -50,7 +48,7 @@ namespace CardDataEditor.DataEditting.Properties {
         public override void ApplyPropertyToPreviewCard(GameObject toggleCardObject, CardInfo toggleCardInfo) {
             toggleCardInfo.rarity = GetPropertyTyped();
 
-            List<CardRarityColor> rarityColors = toggleCardObject.GetComponentsInChildren<CardRarityColor>(false).ToList();
+            var rarityColors = toggleCardObject.GetComponentsInChildren<CardRarityColor>(false).ToList();
             rarityColors.ForEach(r => r.Toggle(true));
         }
 

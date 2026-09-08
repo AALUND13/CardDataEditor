@@ -1,6 +1,5 @@
 ﻿using CardDataEditor.DataEditting.Config;
 using CardDataEditor.UI.Properites;
-using CardDataEditor.UI.Registries;
 using ClassesManagerReborn;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
-            GameObject propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIIntPropertyPrefab.gameObject);
+            var propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIIntPropertyPrefab.gameObject);
             propertyUI.GetComponent<UIIntProperty>().Init((CardPropertyConfigEntry<int>)entry);
             return propertyUI;
         }
@@ -26,12 +25,12 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override void ApplyProperty(int value) {
-            ClassObject classObject = ClassesRegistry.Get(Card);
+            var classObject = ClassesRegistry.Get(Card);
             if (classObject == null) {
                 classObject = ClassesRegistry.Register(Card, CardType.NonClassCard, value);
             }
-            classObject.cap = value;
 
+            classObject.cap = value;
             if (value > 1) {
                 Card.allowMultiple = true;
             } else if (value > 0) {
@@ -43,8 +42,9 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override int GetPropertyTyped() {
-            ClassObject classObject = ClassesRegistry.Get(Card);
+            var classObject = ClassesRegistry.Get(Card);
             int result;
+
             if (classObject == null) {
                 result = Card.allowMultiple ? 1 : 0;
             } else {

@@ -75,7 +75,7 @@ namespace CardDataEditor.DataEditting.Registries {
 
                 for (int i = 0; i < cardCount; i++) {
                     string cardName = reader.ReadString();
-                    CardInfo cardInfo = ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(cardName);
+                    var cardInfo = ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(cardName);
 
                     if (cardInfo == null) {
                         LoggerUtils.Log(LogLevel.Warning,
@@ -83,8 +83,8 @@ namespace CardDataEditor.DataEditting.Registries {
                         );
                         continue;
                     }
-                    CardOptions cardOptions = cardOptionsRegistry[cardInfo];
 
+                    var cardOptions = cardOptionsRegistry[cardInfo];
                     int length = reader.ReadInt32();
                     byte[] cardData = reader.ReadBytes(length);
 

@@ -34,8 +34,8 @@ namespace CardDataEditor.Scripts.Migration {
 
         public void MigrateRarityToggle(CardOptionsConfig configFile) {
             Profiler.Start("RarityToggleMigration.MigrateRarityToggle");
-            
-            Dictionary<string, CardInfo> sanitizedCardNames = new Dictionary<string, CardInfo>();
+
+            var sanitizedCardNames = new Dictionary<string, CardInfo>();
             foreach (var card in allCards) {
                 sanitizedCardNames.Add(SanitizeText(card.name), card);
             }
@@ -45,8 +45,8 @@ namespace CardDataEditor.Scripts.Migration {
                 if (sanitizedCardNames.TryGetValue(entry.Key.Key, out var cardInfo)) {
                     if (entry.Value == "DEFAULT") continue;
 
-                    CardOptionsConfigCategory cardOptions = configFile.FindCategory(cardInfo.name);
-                    CardPropertyConfigEntry<CardInfo.Rarity> rarityProperty = cardOptions.GetEntry<CardInfo.Rarity>();
+                    var cardOptions = configFile.FindCategory(cardInfo.name);
+                    var rarityProperty = cardOptions.GetEntry<CardInfo.Rarity>();
 
                     // Since other mods pqtch "GetValues" to return a custom enum values, and Enum.Parse doesn't work with that, we have to use GetValues and manually find the value.
                     bool isValidRarity = Enum.GetValues(typeof(CardInfo.Rarity))

@@ -19,7 +19,6 @@ namespace CardDataEditor {
             AddBlank(menuObject, 50);
 
             GameObject toggle = null;
-
             toggle = MenuHandler.CreateToggle(
                 DangerMode.Value,
                 "<color=#8b0000>Danger Mode</color>",

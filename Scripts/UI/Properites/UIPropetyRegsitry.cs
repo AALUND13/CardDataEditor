@@ -1,10 +1,10 @@
-﻿using CardDataEditor.UI.Properites;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CardDataEditor.UI.Registries {
+namespace CardDataEditor.UI.Properites {
     public class UIPropetyRegsitry : MonoBehaviour {
-        public static UIPropetyRegsitry Instance;
+        public static UIPropetyRegsitry Instance { get; private set; }
 
+        [Header("References")]
         public UIIntProperty UIIntPropertyPrefab;
         public UIFloatProperty UIFloatPropertyPrefab;
         public UIBoolProperty UIBoolPropertyPrefab;

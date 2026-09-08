@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8144098379758890496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6e713c102524c241a79adb7a580d3e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d6bae3c38043bc4881024e342923ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UIIntPropertyPrefab: {fileID: 8119910888853588498, guid: bce199db3cd633a48aaa97924948075a,

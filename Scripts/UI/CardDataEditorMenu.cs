@@ -1,52 +1,72 @@
-﻿using BepInEx.Logging;
-using CardDataEditor.Utils.Debug;
-using UnboundLib;
-using UnboundLib.Utils.UI;
+﻿using CardDataEditor.DataEditting.Config;
+using CardDataEditor.UI.Panels;
+using System.Collections.Generic;
+using System.Linq;
+using UnboundLib.Utils;
 using UnityEngine;
 
 namespace CardDataEditor.UI {
-     public class CardDataEditorMenuHandler : MonoBehaviour {
-        public static CardDataEditorMenuHandler Instance;
-        public bool isOpened = false;
+    public class CardDataEditorMenu : MonoBehaviour {
+        public static CardDataEditorMenu Instance { get; private set; }
+
+        [Header("References")]
+        public ModSelectionPanel ModSelectionPanel;
+        public CardSelectionPanel CardsSelectionPanel;
+        public CardPreviewPanel CardPreviewPanel;
+        public CardPropertiesPanel CardPropertiesPanel;
+
+
+        private readonly List<string> createdModCategories = new List<string>();
 
 
         private void Awake() {
             Instance = this;
         }
 
-        private void Update() {
-            if(Input.GetKeyDown(KeyCode.Escape)) CloseMenu();
+        private void Start() {
+            gameObject.SetActive(false);
         }
 
 
-        internal void CreateMenu() {
-            GameObject modOptionsMenu = (GameObject)ModOptions.instance.GetFieldValue("modOptionsMenu");
+        public void Init(CardOptionsConfig configFile) {
+            foreach (CardOptionsConfigCategory category in configFile.Categories) {
+                string modCategory = GetCardModCategory(category.CardOptions.Card);
+                if (!createdModCategories.Contains(modCategory)) {
+                    ModSelectionPanel.CreateModButton(modCategory);
+                    CardsSelectionPanel.CreateModCategory(modCategory);
+                    createdModCategories.Add(modCategory);
+                }
 
-            MenuHandler.CreateButton("Card Data Editor", modOptionsMenu, OpenMenu);
+                ModCardsCategory modCardsCategory = CardsSelectionPanel.GetModCategory(modCategory);
+                modCardsCategory.CreateCardButton(category);
+            }
         }
+
 
         public void OpenMenu() {
-            if (!isOpened) {
-                if (MainMenuHandler.instance.isOpen) MainMenuHandler.instance.Close();
-                Camera mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
-                Canvas canvas = CardDataEditorUI.Instance.GetComponent<Canvas>();
-                canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                canvas.worldCamera = mainCamera;
-
-                CardDataEditorUI.Instance.OpenMenu();
-                LoggerUtils.Log(LogLevel.Debug, "Card data edttor menu have been opened.");
-                isOpened = true;
-            }
+            gameObject.SetActive(true);
+            ModSelectionPanel.OpenMod("Vanilla");
+            CardsSelectionPanel.GetModCategory("Vanilla").CardButtons[0].OpenCard();
         }
 
         public void CloseMenu() {
-            if (isOpened) {
-                if (!MainMenuHandler.instance.isOpen) MainMenuHandler.instance.Open();
-                CardDataEditorUI.Instance.CloseMenu();
+            gameObject.SetActive(false);
+        }
 
-                LoggerUtils.Log(LogLevel.Debug, "Card data edttor menu have been closed.");
-                isOpened = false;
-            }
+
+        public void OpenMod(string modCategory) {
+            CardsSelectionPanel.OpenModCategory(modCategory);
+        }
+
+
+        public void OpenCard(CardOptionsConfigCategory category) {
+            CardPreviewPanel.CreateCardPreview(category);
+            CardPropertiesPanel.CreateCardProperties(category);
+        }
+
+
+        private string GetCardModCategory(CardInfo cardInfo) {
+            return CardManager.cards.First(c => c.Value.cardInfo == cardInfo).Value.category;
         }
     }
 }
