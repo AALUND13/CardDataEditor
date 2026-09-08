@@ -1,0 +1,103 @@
+﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+using CardDataEditor.DataEditting.Config;
+using CardDataEditor.UI.Properites;
+using CardDataEditor.UI.Registries;
+using ClassesManagerReborn;
+using ClassesManagerReborn.Util;
+using System.Linq;
+using TMPro;
+using UnboundLib;
+using UnityEngine;
+
+namespace CardDataEditor.DataEditting.Properties {
+    public class DetachClassProperty : CardProperty<bool> {
+        private bool haveBeenDetach = false;
+        private CardInfo[][] savedRequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
+        private CardType savedCardType = CardType.NonClassCard;
+
+        public DetachClassProperty(CardInfo card) : base(card) {
+            ClassObject classObject = ClassesRegistry.Get(Card);
+            if (classObject != null) {
+                savedRequiredClassesTree = classObject.RequiredClassesTree;
+                savedCardType = classObject.type;
+            }
+        }
+
+
+        public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
+            GameObject propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
+            propertyUI.GetComponent<UIBoolProperty>().Init((CardPropertyConfigEntry<bool>)entry);
+            return propertyUI;
+        }
+
+
+        public override string GetCategoryName() {
+            return "Classes";
+        }
+
+        public override string GetPropertyName() {
+            return "Detach Class";
+        }
+
+
+        public override void ApplyPropertyToPreviewCard(GameObject cardObject, CardInfo cardInfo) {
+            ClassObject classObject = ClassesRegistry.Get(Card);
+
+            ClassNameMono classNameMono = cardObject.GetComponent<ClassNameMono>();
+            if (classObject == null || classNameMono == null) return;
+
+            RectTransform bottomLeftRect = cardObject.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(x => x.name == "EdgePart (1)");
+            Transform modNameObj = bottomLeftRect.transform.Find("ExtraCardText(Clone)");
+
+            if(GetPropertyTyped()) {
+                classNameMono.enabled = false;
+                if (modNameObj != null) modNameObj.gameObject.SetActive(false);
+            } else {
+                classNameMono.enabled = true;
+                if (modNameObj != null) modNameObj.gameObject.SetActive(true);
+            }
+        }
+
+
+        public override bool CanShowProperty() {
+            ClassObject classObject = ClassesRegistry.Get(Card);
+            if (classObject != null && (CustomCardCategories.instance.CardCategory("ClassDetachable") || CardDataEditorConfig.DangerMode.Value)) {
+                return (classObject.type != CardType.NonClassCard && classObject.type != CardType.Entry) || haveBeenDetach;
+            }
+            return haveBeenDetach;
+        }
+
+        public override void ApplyProperty(bool value) {
+            ClassObject classObject = ClassesRegistry.Get(Card);
+            if (classObject == null) return;
+
+            ClassNameMono className = Card.GetComponent<ClassNameMono>();
+            if (value) {
+                if (className != null) className.enabled = false;
+                classObject.RequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
+                classObject.SetPropertyValue("type", CardType.NonClassCard);
+                haveBeenDetach = true;
+            } else {
+                if(className != null) className.enabled = true;
+                classObject.RequiredClassesTree = savedRequiredClassesTree;
+                classObject.SetPropertyValue("type", savedCardType);
+                haveBeenDetach = false;
+            }
+        }
+
+
+        public override bool GetPropertyTyped() {
+            return haveBeenDetach;
+        }
+
+
+        public override byte[] SerializeValueTyped(bool value) {
+            byte[] result = System.BitConverter.GetBytes(value);
+            return result;
+        }
+
+        public override bool DeserializeValueTyped(byte[] data) {
+            return System.BitConverter.ToBoolean(data, 0);
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "CardDataEditor",
+    "references": [
+        "UnboundLib",
+        "ModdingUtils",
+        "ClassesManagerReborn",
+        "Unity.TextMeshPro",
+        "RarityLib",
+        "ToggleCardsCategories",
+        "CardChoiceSpawnUniqueCardPatch"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "0Harmony.dll",
+        "BepInEx.dll",
+        "Assembly-CSharp.dll",
+        "PhotonUnityNetworking.dll",
+        "PhotonRealtime.dll",
+        "Photon3Unity3D.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
