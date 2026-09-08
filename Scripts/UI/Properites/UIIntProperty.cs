@@ -16,7 +16,7 @@ namespace CardDataEditor.UI.Properites {
             PropertyNameText.text = propertyConfigEntry.Name;
             PropertyInputField.text = propertyConfigEntry.ValueTyped.ToString();
 
-            PropertyInputField.onEndEdit.AddListener(text => {
+            PropertyInputField.onValueChanged.AddListener(text => {
                 if (int.TryParse(text, out int value)) {
                     propertyConfigEntry.Value = value;
                 }
