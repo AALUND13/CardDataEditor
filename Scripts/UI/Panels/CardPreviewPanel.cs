@@ -1,6 +1,4 @@
-﻿using CardDataEditor.DataEditting;
-using CardDataEditor.DataEditting.Config;
-using CardDataEditor.DataEditting.Properties;
+﻿using CardDataEditor.DataEditting.Config;
 using System.Linq;
 using TMPro;
 using UnboundLib;
@@ -17,7 +15,7 @@ namespace CardDataEditor.UI.Panels {
 
 
         public void CreateCardPreview(CardOptionsConfigCategory cardOptions) {
-            if(CurrentPreviewCard != null) {
+            if (CurrentPreviewCard != null) {
                 CurrentCardOptions.OnEntryChanged -= ApplyPropertyToPreviewCard;
                 Destroy(CurrentPreviewCard);
             }
@@ -27,38 +25,43 @@ namespace CardDataEditor.UI.Panels {
             CurrentPreviewCard.SetActive(true);
 
             var cardFrontObj = FindObjectInChildren(CurrentPreviewCard, "Front");
+            if (cardFrontObj == null) return;
+
             var backObj = FindObjectInChildren(CurrentPreviewCard, "Back");
             var damagableObj = FindObjectInChildren(CurrentPreviewCard, "Damagable");
 
             Destroy(backObj);
             Destroy(damagableObj);
 
-            var cardVisuals = CurrentPreviewCard.GetComponentInChildren<CardVisuals>();
-            cardVisuals.firstValueToSet = true;
+            foreach (CardVisuals componentsInChild in CurrentPreviewCard.GetComponentsInChildren<CardVisuals>()) {
+                componentsInChild.firstValueToSet = true;
+            }
 
             FindObjectInChildren(CurrentPreviewCard, "BlockFront")?.SetActive(false);
             var canvasGroups = CurrentPreviewCard.GetComponentsInChildren<CanvasGroup>().ToList();
             canvasGroups.ForEach((CanvasGroup canvasGroup) => canvasGroup.alpha = 1);
 
             var uiParticleObj = FindObjectInChildren(cardFrontObj.gameObject, "UI_ParticleSystem");
-            Destroy(uiParticleObj);
+            if (uiParticleObj != null) Destroy(uiParticleObj);
 
             var backgroundObj = FindObjectInChildren(cardFrontObj.gameObject, "Background");
-            var backgroundRect = backgroundObj.GetComponent<RectTransform>();
-            backgroundRect.localScale = new Vector3(1, 1, 1);
-            backgroundRect.anchorMin = new Vector2(0.5f, 0.5f);
-            backgroundRect.anchorMax = new Vector2(0.5f, 0.5f);
-            backgroundRect.sizeDelta = new Vector2(1500f, 1500f);
+            if (backgroundObj != null) {
+                var backgroundRect = backgroundObj.GetComponent<RectTransform>();
+                backgroundRect.localScale = new Vector3(1, 1, 1);
+                backgroundRect.anchorMin = new Vector2(0.5f, 0.5f);
+                backgroundRect.anchorMax = new Vector2(0.5f, 0.5f);
+                backgroundRect.sizeDelta = new Vector2(1500f, 1500f);
 
-            var backgroundImage = backgroundObj.gameObject.GetComponentInChildren<Image>(true);
-            if (backgroundImage != null) {
-                backgroundImage.preserveAspect = true;
-                backgroundImage.color = new Color(0.16f, 0.16f, 0.16f, 1f);
-            }
+                var backgroundImage = backgroundObj.gameObject.GetComponentInChildren<Image>(true);
+                if (backgroundImage != null) {
+                    backgroundImage.preserveAspect = true;
+                    backgroundImage.color = new Color(0.16f, 0.16f, 0.16f, 1f);
+                }
 
-            var backgroundMask = backgroundObj.gameObject.GetComponentInChildren<Mask>(true);
-            if (backgroundMask != null) {
-                backgroundMask.showMaskGraphic = true;
+                var backgroundMask = backgroundObj.gameObject.GetComponentInChildren<Mask>(true);
+                if (backgroundMask != null) {
+                    backgroundMask.showMaskGraphic = true;
+                }
             }
 
             var cardPreviewRect = CurrentPreviewCard.GetOrAddComponent<RectTransform>();
@@ -86,7 +89,7 @@ namespace CardDataEditor.UI.Panels {
 
         private static GameObject FindObjectInChildren(GameObject gameObject, string gameObjectName) {
             var children = gameObject.GetComponentsInChildren<Transform>(true);
-            return children.FirstOrDefault(i => i.gameObject.name == gameObjectName).gameObject;
+            return children.FirstOrDefault(i => i.gameObject.name == gameObjectName)?.gameObject;
         }
     }
 }
