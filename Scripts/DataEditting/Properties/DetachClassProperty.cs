@@ -10,8 +10,8 @@ using UnityEngine;
 namespace CardDataEditor.DataEditting.Properties {
     public class DetachClassProperty : CardProperty<bool> {
         private bool haveBeenDetach = false;
-        private CardInfo[][] savedRequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
-        private CardType savedCardType = CardType.NonClassCard;
+        private readonly CardInfo[][] savedRequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
+        private readonly CardType savedCardType = CardType.NonClassCard;
 
         public DetachClassProperty(CardInfo card) : base(card) {
             var classObject = ClassesRegistry.Get(Card);
@@ -30,10 +30,14 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override string GetCategoryName() {
-            return "Classes";
+            return "Detachments";
         }
 
         public override string GetPropertyName() {
+            return "Detach From Class";
+        }
+
+        public override string GetSerializeName() {
             return "Detach Class";
         }
 

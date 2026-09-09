@@ -22,6 +22,8 @@ namespace CardDataEditor {
     [BepInDependency("root.rarity.lib", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch", BepInDependency.DependencyFlags.HardDependency)]
 
+    [BepInDependency("com.willuwontu.rounds.managers", BepInDependency.DependencyFlags.SoftDependency)]
+
     [BepInProcess("Rounds.exe")]
     [BepInPlugin(ModId, ModName, Version)]
     public class CardDataEditor : BaseUnityPlugin {

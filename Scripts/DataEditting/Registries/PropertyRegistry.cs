@@ -13,6 +13,9 @@ namespace CardDataEditor.DataEditting.Registries {
             RegisterProperty<ThemeCardProperty>();
             RegisterProperty<DetachClassProperty>();
             RegisterProperty<AmountCardProperty>();
+            if (CardDataEditor.Plugins.Exists(plugin => plugin.Info.Metadata.GUID == "com.willuwontu.rounds.managers")) {
+                RegisterProperty<DetechCurseProperty>();
+            }
         }
 
 
