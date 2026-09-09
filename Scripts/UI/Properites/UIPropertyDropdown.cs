@@ -119,7 +119,7 @@ namespace CardDataEditor.UI.Properites {
             search = RemoveTags(search.Trim());
 
             foreach (DropdownItem item in DropdownItems) {
-                string value = RemoveTags(item.value);
+                string value = RemoveTags(item.name);
 
                 bool matches =
                     string.IsNullOrEmpty(search) ||
@@ -145,7 +145,7 @@ namespace CardDataEditor.UI.Properites {
             value = RemoveTags(value);
 
             return DropdownItems
-                .Where(i => RemoveTags(i.value)
+                .Where(i => RemoveTags(i.name)
                     .IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0)
                 .ToArray();
         }
