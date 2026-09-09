@@ -31,7 +31,7 @@ namespace CardDataEditor.UI.Panels {
                         CategoryToPropertiesMap.Add(propertyCategory, new List<GameObject>());
                     }
 
-                    var propertyUIObj = property.CreateUIProperty(category.GetEntry(property.GetPropertyName()));
+                    var propertyUIObj = property.CreateUIProperty(category.GetEntry(property.GetSerializeName()));
                     CategoryToPropertiesMap[propertyCategory].Add(propertyUIObj);
                 }
             }

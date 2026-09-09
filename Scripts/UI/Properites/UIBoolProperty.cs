@@ -16,7 +16,7 @@ namespace CardDataEditor.UI.Properites {
         public void Init(CardPropertyConfigEntry<bool> propertyConfigEntry) {
             cardProperty = propertyConfigEntry;
 
-            PropertyNameText.text = propertyConfigEntry.Name;
+            PropertyNameText.text = propertyConfigEntry.CardOptionProperty.GetPropertyName();
             PropertyToggle.isOn = propertyConfigEntry.ValueTyped;
 
             PropertyToggle.onValueChanged.AddListener(value => {

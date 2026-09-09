@@ -19,6 +19,8 @@ namespace CardDataEditor.DataEditting.Properties {
 
         public abstract string GetCategoryName();
         public abstract string GetPropertyName();
+        public virtual string GetDescription() => null;
+        public virtual string GetSerializeName() => GetPropertyName();
 
         public abstract void ApplyProperty(object value);
         public abstract object GetProperty();
@@ -38,7 +40,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override CardPropertyConfigEntry CreateCardPropertyConfigEntry(CardOptionsConfig configFile) =>
-            new CardPropertyConfigEntry<T>(GetPropertyName(), this, configFile);
+            new CardPropertyConfigEntry<T>(GetSerializeName(), this, configFile);
 
         public override void ApplyProperty(object value) =>
             ApplyProperty((T)value);
