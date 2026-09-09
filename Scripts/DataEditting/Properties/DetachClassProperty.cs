@@ -62,7 +62,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
         public override bool CanShowProperty() {
             ClassObject classObject = ClassesRegistry.Get(Card);
-            if (classObject != null && (CustomCardCategories.instance.CardCategory("ClassDetachable") || CardDataEditorConfig.DangerMode.Value)) {
+            if (classObject != null && (Card.categories.Contains(CustomCardCategories.instance.CardCategory("ClassDetachable")) || CardDataEditorConfig.DangerMode.Value)) {
                 return (classObject.type != CardType.NonClassCard && classObject.type != CardType.Entry) || haveBeenDetach;
             }
             return haveBeenDetach;
