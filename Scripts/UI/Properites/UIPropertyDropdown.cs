@@ -62,6 +62,11 @@ namespace CardDataEditor.UI.Properites {
         public DropdownItem DefaultDropdownItem;
 
 
+        private void Awake() {
+            PropertyDropdownViewport.gameObject.SetActive(false);
+        }
+
+
         public void Init(string name, DropdownItem[] dropdownItems, DropdownItem selectedDropdownItem, DropdownItem defaultDropdownItem) {
             if (!dropdownItems.Contains(selectedDropdownItem)) {
                 throw new ArgumentException(
