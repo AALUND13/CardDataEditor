@@ -13,6 +13,8 @@ namespace CardDataEditor.UI.Properites {
 
 
         public void Init(CardPropertyConfigEntry<int> propertyConfigEntry) {
+            cardProperty = propertyConfigEntry;
+
             PropertyNameText.text = propertyConfigEntry.CardOptionProperty.GetPropertyName();
             PropertyInputField.text = propertyConfigEntry.ValueTyped.ToString();
 
