@@ -1,10 +1,11 @@
-# Card Data Editor (v1.0.0)
+# Card Data Editor
 ## Description
 **Card Data Editor** is a mod that allows you to edit **card properties**, including:
 - **Rarity**
 - **Theme**
 - **Card Amount**
-- **Detach Class** - available for certain class cards
+- **Detach From Class** - available for certain class cards
+- **Detach From Curse** - available for curse cards
 These properties can be modified through the **Card Data Editor** menu.
 ### Detaching Class Cards
 By default, players can only detach class cards that have the `ClassDetachable` card category.
