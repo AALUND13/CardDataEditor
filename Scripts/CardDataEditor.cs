@@ -19,6 +19,8 @@ namespace CardDataEditor {
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("root.classes.manager.reborn", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("root.rarity.lib", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch", BepInDependency.DependencyFlags.HardDependency)]
 
     [BepInProcess("Rounds.exe")]
     [BepInPlugin(ModId, ModName, Version)]
@@ -26,7 +28,7 @@ namespace CardDataEditor {
         public const string ModId = "AALUND13.Card.Data.Editor";
         public const string ModName = "Card Data Editor";
         public const string ModInitials = "CDE";
-        public const string Version = "1.0.2"; // What version are we on (major.minor.patch)?
+        public const string Version = "1.0.3"; // What version are we on (major.minor.patch)?
 
         public static CardDataEditor Instance { get; private set; }
         public static ManualLogSource ModLogger { get; private set; }
