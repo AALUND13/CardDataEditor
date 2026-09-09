@@ -30,7 +30,7 @@ namespace CardDataEditor {
         public const string ModId = "AALUND13.Card.Data.Editor";
         public const string ModName = "Card Data Editor";
         public const string ModInitials = "CDE";
-        public const string Version = "1.0.3"; // What version are we on (major.minor.patch)?
+        public const string Version = "1.1.0"; // What version are we on (major.minor.patch)?
 
         public static CardDataEditor Instance { get; private set; }
         public static ManualLogSource ModLogger { get; private set; }
