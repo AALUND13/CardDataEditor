@@ -20,9 +20,13 @@ namespace CardDataEditor.DataEditting.Properties {
         }
 
         public override string GetPropertyName() {
-            return "Amount";
+            return "Card Limit";
         }
 
+        public override string GetSerializeName() {
+            return "Amount";
+        }
+        
 
         public override void ApplyProperty(int value) {
             var classObject = ClassesRegistry.Get(Card);
