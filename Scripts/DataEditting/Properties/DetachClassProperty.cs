@@ -62,8 +62,12 @@ namespace CardDataEditor.DataEditting.Properties {
 
         public override bool CanShowProperty() {
             ClassObject classObject = ClassesRegistry.Get(Card);
-            if (classObject != null && (Card.categories.Contains(CustomCardCategories.instance.CardCategory("ClassDetachable")) || CardDataEditorConfig.DangerMode.Value)) {
-                return (classObject.type != CardType.NonClassCard && classObject.type != CardType.Entry) || haveBeenDetach;
+            if (classObject != null) {
+                if(Card.categories.Contains(CustomCardCategories.instance.CardCategory("ClassDetachable")) || CardDataEditorConfig.DangerMode.Value) {
+                    return classObject.type != CardType.NonClassCard || haveBeenDetach;
+                } else if (classObject.type == CardType.Entry) {
+                    return true;
+                }
             }
             return haveBeenDetach;
         }
