@@ -4,7 +4,7 @@ using UnboundLib;
 using UnboundLib.Utils.UI;
 using UnityEngine;
 
-namespace CardDataEditor.UI {
+namespace CardDataEditor.UI.Menus {
      public class CardDataEditorMenuHandler : MonoBehaviour {
         public static CardDataEditorMenuHandler Instance;
         public bool isOpened = false;

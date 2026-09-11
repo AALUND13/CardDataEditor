@@ -342,7 +342,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 588156676745789961}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.8769231
+  m_Size: 0.9999828
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -769,7 +769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 8.042082}
+  m_AnchoredPosition: {x: 0, y: 4.999986}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &801487811723753947
@@ -1513,7 +1513,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 801487811529380500}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.8939394
+  m_Size: 0.99998486
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2958,7 +2958,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3525392913285148064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c7f10afc2de3124a9e9f9cac157a3c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 837e6e56a18b32545b1c720acd1d604a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CardPreviewHolder: {fileID: 7749223859595432104}
@@ -3239,7 +3239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4341788976331480041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bda91318237c74485fce6b54d0c2a4, type: 3}
+  m_Script: {fileID: 11500000, guid: be4bb66f4125a1c44860996a16811f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ModSelectionPanel: {fileID: 8717645005528513794}
@@ -3792,7 +3792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 3.4766686}
+  m_AnchoredPosition: {x: 0, y: 0.000073477844}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5939891137204207199
@@ -4044,7 +4044,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 146263338577270677}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.78333336
+  m_Size: 0.99997115
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4772,7 +4772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 10.649573}
+  m_AnchoredPosition: {x: 0, y: 4.9999995}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8051800503786508960

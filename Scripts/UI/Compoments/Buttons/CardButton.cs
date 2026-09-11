@@ -1,12 +1,12 @@
 ﻿using CardDataEditor.DataEditting.Config;
-using CardDataEditor.UI.Panels;
 using CardDataEditor.Utils;
 using RarityLib.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace CardDataEditor.UI.Buttons {
+namespace CardDataEditor.UI.Compoments.Buttons {
     public class CardButton : MonoBehaviour {
         [Header("References")]
         public TextMeshProUGUI CardNameText;
@@ -23,24 +23,23 @@ namespace CardDataEditor.UI.Buttons {
 
         private Coroutine colorAnimation;
 
-        public void Init(CardOptionsConfigCategory category) {
-            this.Category = category;
-            this.Category.OnEntryChanged += (_) => {
+
+        public void Init(CardOptionsConfigCategory category, UnityAction<CardButton> onClicked) {
+            Category = category;
+            Category.OnEntryChanged += (_) => {
                 UpdateVisual();
             };
+            OpenButton.onClick.AddListener(() => {
+                onClicked.Invoke(this);
+            });
             UpdateVisual();
-        }
-
-
-        public void OpenCard() {
-            GetComponentInParent<CardSelectionPanel>().OpenCard(Category, this);
         }
 
         public void UpdateVisualAnimation() {
             if (colorAnimation != null) StopCoroutine(colorAnimation);
 
             Color startColor = RarityGraphic.color;
-            if(gameObject.activeInHierarchy) {
+            if (gameObject.activeInHierarchy) {
                 colorAnimation = StartCoroutine(EaseUtils.EaseCoroutine(
                     0.25f,
                     EaseUtils.EaseType.easeInOutSine,
@@ -60,7 +59,7 @@ namespace CardDataEditor.UI.Buttons {
 
         private Color GetCardRarityColor(CardInfo card) {
             float multiplier = IsSelected ? SelectMultiplier : DeselectMultiplier;
-            
+
             var color = RarityUtils.GetRarityData(card.rarity).color * multiplier;
             float max = Mathf.Max(color.r, color.g, color.b);
 

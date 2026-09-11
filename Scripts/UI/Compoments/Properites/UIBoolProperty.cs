@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CardDataEditor.UI.Properites {
+namespace CardDataEditor.UI.Compoments.Properites {
     public class UIBoolProperty : MonoBehaviour {
         [Header("References")]
         public TextMeshProUGUI PropertyNameText;

@@ -1,5 +1,7 @@
 ﻿using CardDataEditor.DataEditting.Config;
-using CardDataEditor.UI.Buttons;
+using CardDataEditor.UI.Compoments.Buttons;
+using CardDataEditor.UI.Compoments.Categories;
+using CardDataEditor.UI.Menus;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

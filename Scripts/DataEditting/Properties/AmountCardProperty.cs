@@ -1,5 +1,6 @@
 ﻿using CardDataEditor.DataEditting.Config;
-using CardDataEditor.UI.Properites;
+using CardDataEditor.UI;
+using CardDataEditor.UI.Compoments.Properites;
 using ClassesManagerReborn;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
-            var propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIIntPropertyPrefab.gameObject);
+            var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIIntPropertyPrefab.gameObject);
             propertyUI.GetComponent<UIIntProperty>().Init((CardPropertyConfigEntry<int>)entry);
             return propertyUI;
         }
@@ -26,7 +27,7 @@ namespace CardDataEditor.DataEditting.Properties {
         public override string GetSerializeName() {
             return "Amount";
         }
-        
+
 
         public override void ApplyProperty(int value) {
             var classObject = ClassesRegistry.Get(Card);

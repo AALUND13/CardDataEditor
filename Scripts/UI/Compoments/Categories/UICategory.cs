@@ -1,11 +1,11 @@
 ﻿using CardDataEditor.DataEditting.Config;
-using CardDataEditor.UI.Buttons;
-using CardDataEditor.UI.Panels;
+using CardDataEditor.UI.Compoments.Buttons;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace CardDataEditor.UI {
+namespace CardDataEditor.UI.Compoments.Categories {
     public class UICategory : MonoBehaviour {
         [Header("Prefabs")]
         public CardButton UICardOptionsPrefab;
@@ -26,29 +26,26 @@ namespace CardDataEditor.UI {
         public UICategory ParentCategory { get; private set; }
         public bool IsOpened { get; private set; }
 
-        internal ModCardsCategory modCardsCategory;
 
-
-        public CardButton CreateButton(CardOptionsConfigCategory category) {
+        public CardButton CreateButton(CardOptionsConfigCategory category, UnityAction<CardButton> onButtonClicked) {
             var uiCardOptionsObject = GameObject.Instantiate(UICardOptionsPrefab).gameObject;
             var uiCardOptions = uiCardOptionsObject.GetComponent<CardButton>();
 
             uiCardOptionsObject.transform.SetParent(ButtonContents.transform);
             uiCardOptionsObject.transform.localScale = Vector3.one;
-            uiCardOptions.Init(category);
+            uiCardOptions.Init(category, onButtonClicked);
 
             ButtonContents.SetActive(true);
             return uiCardOptions;
         }
 
         public UICategory CreateCategory(string categoryName) {
-            var uiCategoryObject = GameObject.Instantiate(modCardsCategory.UICategoryPrefab).gameObject;
+            var uiCategoryObject = GameObject.Instantiate(UIRegsitry.Instance.UICategoryPrefab).gameObject;
             var uICategory = uiCategoryObject.GetComponent<UICategory>();
 
             uiCategoryObject.transform.SetParent(CategoryContents.transform);
             uiCategoryObject.transform.localScale = Vector3.one;
             uICategory.CategoryText.text = categoryName;
-            uICategory.modCardsCategory = modCardsCategory;
             uICategory.ParentCategory = this;
 
             CategoryContents.SetActive(true);

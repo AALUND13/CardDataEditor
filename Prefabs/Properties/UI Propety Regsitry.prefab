@@ -56,3 +56,5 @@ MonoBehaviour:
     type: 3}
   UIEnumPropertyPrefab: {fileID: 7837204320203092378, guid: e2f79885a0cf8f34488e43287a4a2b00,
     type: 3}
+  UICategoryPrefab: {fileID: 5067382515831331207, guid: bd3064f6e03e60342b2bd64f5f4d4553,
+    type: 3}

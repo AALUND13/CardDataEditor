@@ -1,4 +1,5 @@
-﻿using CardDataEditor.UI.Buttons;
+﻿using CardDataEditor.UI.Compoments.Buttons;
+using CardDataEditor.UI.Menus;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace CardDataEditor.UI.Panels {
         [Header("References")]
         public Transform ItemContents;
 
-        
+
         private readonly Dictionary<string, SelectModButton> modButtons = new Dictionary<string, SelectModButton>();
         private SelectModButton CurrentSelectedModButton;
         private CardDataEditorMenu CardDataEditor;
@@ -28,7 +29,7 @@ namespace CardDataEditor.UI.Panels {
 
                 obj.transform.SetParent(ItemContents);
                 obj.transform.localScale = Vector3.one;
-                button.Init(modCategory);
+                button.Init(modCategory, OpenMod);
 
                 modButtons.Add(modCategory, button);
                 SortModButtons();
@@ -37,9 +38,7 @@ namespace CardDataEditor.UI.Panels {
 
         public void OpenMod(string modCategory) {
             if (modButtons.TryGetValue(modCategory, out SelectModButton modButton)) {
-                if (CurrentSelectedModButton != null) {
-                    CurrentSelectedModButton.DeselectMod();
-                }
+                CurrentSelectedModButton?.DeselectMod();
                 modButton.SelecteMod();
 
                 CurrentSelectedModButton = modButton;

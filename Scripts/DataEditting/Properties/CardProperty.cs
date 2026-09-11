@@ -1,5 +1,4 @@
-﻿using BepInEx.Configuration;
-using CardDataEditor.DataEditting.Config;
+﻿using CardDataEditor.DataEditting.Config;
 using UnityEngine;
 
 namespace CardDataEditor.DataEditting.Properties {

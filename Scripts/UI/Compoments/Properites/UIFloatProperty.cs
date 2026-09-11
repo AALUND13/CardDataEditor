@@ -2,24 +2,24 @@
 using TMPro;
 using UnityEngine;
 
-namespace CardDataEditor.UI.Properites {
-    public class UIIntProperty : MonoBehaviour {
+namespace CardDataEditor.UI.Compoments.Properites {
+    public class UIFloatProperty : MonoBehaviour {
         [Header("References")]
         public TextMeshProUGUI PropertyNameText;
         public TMP_InputField PropertyInputField;
 
-        
-        private CardPropertyConfigEntry<int> cardProperty;
+
+        private CardPropertyConfigEntry<float> cardProperty;
 
 
-        public void Init(CardPropertyConfigEntry<int> propertyConfigEntry) {
+        public void Init(CardPropertyConfigEntry<float> propertyConfigEntry) {
             cardProperty = propertyConfigEntry;
 
             PropertyNameText.text = propertyConfigEntry.CardOptionProperty.GetPropertyName();
             PropertyInputField.text = propertyConfigEntry.ValueTyped.ToString();
 
             PropertyInputField.onValueChanged.AddListener(text => {
-                if (int.TryParse(text, out int value)) {
+                if (float.TryParse(text, out float value)) {
                     propertyConfigEntry.Value = value;
                 }
             });

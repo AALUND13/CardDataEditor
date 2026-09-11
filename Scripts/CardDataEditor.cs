@@ -4,7 +4,7 @@ using BepInEx.Logging;
 using CardDataEditor.DataEditting.Config;
 using CardDataEditor.DataEditting.Registries;
 using CardDataEditor.UI;
-using CardDataEditor.UI.Properites;
+using CardDataEditor.UI.Menus;
 using CardDataEditor.Utils.Debug;
 using HarmonyLib;
 using Photon.Pun;
@@ -61,7 +61,7 @@ namespace CardDataEditor {
 
             CardDataEditorConfig.RegisterMenu(ModConfig);
             PropertyRegistry.RegisterDefaultProperties();
-            UIPropetyRegsitry.Init();
+            UIRegsitry.Init();
 
             this.ExecuteAfterFrames(60, () => {
                 CardOptionRegistry.RegisterAllCardOptions();

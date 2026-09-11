@@ -2,9 +2,10 @@
 using CardDataEditor.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace CardDataEditor.UI.Buttons {
+namespace CardDataEditor.UI.Compoments.Buttons {
     public class SelectModButton : MonoBehaviour {
         [Header("References")]
         public Graphic SelectionGraphic;
@@ -24,10 +25,10 @@ namespace CardDataEditor.UI.Buttons {
         }
 
 
-        public void Init(string modCategory) {
+        public void Init(string modCategory, UnityAction<string> onModOpened) {
             ModText.text = modCategory;
             Button.onClick.AddListener(() => {
-                GetComponentInParent<ModSelectionPanel>().OpenMod(modCategory);
+                onModOpened.Invoke(modCategory);
             });
         }
 
