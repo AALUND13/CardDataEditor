@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace CardDataEditor.UI.Properites {
+namespace CardDataEditor.UI.Compoments.Properites {
     public class UIPropertyDropdown : MonoBehaviour {
         public struct DropdownItem : IEquatable<DropdownItem> {
             public string name;
@@ -61,6 +61,8 @@ namespace CardDataEditor.UI.Properites {
         public DropdownItem SelectedDropdownItem;
         public DropdownItem DefaultDropdownItem;
 
+        private bool haveGenerateDropdownButton;
+
 
         private void Awake() {
             PropertyDropdownViewport.gameObject.SetActive(false);
@@ -75,7 +77,7 @@ namespace CardDataEditor.UI.Properites {
                 );
             } else if (!dropdownItems.Contains(defaultDropdownItem)) {
                 throw new ArgumentException(
-                    $"Default dropdown item '{selectedDropdownItem.value}' does not exist in the dropdown items.",
+                    $"Default dropdown item '{defaultDropdownItem.value}' does not exist in the dropdown items.",
                     nameof(defaultDropdownItem)
                 );
             }
@@ -101,8 +103,32 @@ namespace CardDataEditor.UI.Properites {
             PropertySearchInputField.SetTextWithoutNotify(selectedDropdownItem.name);
         }
 
+
+        public void GenerateDropdownButtons() {
+            while (PropertyDropdownItems.Values.Count > 0) {
+                Destroy(PropertyDropdownItems.Values.First());
+                PropertyDropdownItems.Remove(PropertyDropdownItems.Keys.First());
+            }
+
+            foreach (DropdownItem dropdownItem in DropdownItems) {
+                GameObject dropdownButtonObject = GameObject.Instantiate(propertyButtonPrefab.gameObject);
+                UIDropdownItemButton dropdownButton = dropdownButtonObject.GetComponent<UIDropdownItemButton>();
+
+                dropdownButtonObject.transform.SetParent(PropertyValuesContent);
+                dropdownButton.Init(this, dropdownItem);
+
+                PropertyDropdownItems.Add(dropdownItem, dropdownButton);
+            }
+        }
+
+
         private void OnSearchSelected(string value) {
             LoggerUtils.Log(LogLevel.Info, "Dropdown have been selected.");
+
+            if (!haveGenerateDropdownButton) {
+                GenerateDropdownButtons();
+                haveGenerateDropdownButton = true;
+            }
 
             PropertyDropdownViewport.gameObject.SetActive(true);
 
@@ -156,7 +182,7 @@ namespace CardDataEditor.UI.Properites {
             SelectedDropdownItem = value;
             PropertySearchInputField.SetTextWithoutNotify(value.name);
             PropertyDropdownViewport.gameObject.SetActive(false);
-            
+
             OnValueChanged?.Invoke(value);
         }
 

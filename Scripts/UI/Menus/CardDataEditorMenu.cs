@@ -1,18 +1,21 @@
 ﻿using CardDataEditor.DataEditting.Config;
+using CardDataEditor.UI.Compoments.Buttons;
+using CardDataEditor.UI.Compoments.Categories;
+using CardDataEditor.UI.Compoments.Previews;
 using CardDataEditor.UI.Panels;
 using System.Collections.Generic;
 using System.Linq;
 using UnboundLib.Utils;
 using UnityEngine;
 
-namespace CardDataEditor.UI {
+namespace CardDataEditor.UI.Menus {
     public class CardDataEditorMenu : MonoBehaviour {
         public static CardDataEditorMenu Instance { get; private set; }
 
         [Header("References")]
         public ModSelectionPanel ModSelectionPanel;
         public CardSelectionPanel CardsSelectionPanel;
-        public CardPreviewPanel CardPreviewPanel;
+        public CardPreview CardPreviewPanel;
         public CardPropertiesPanel CardPropertiesPanel;
 
 
@@ -38,15 +41,20 @@ namespace CardDataEditor.UI {
                 }
 
                 ModCardsCategory modCardsCategory = CardsSelectionPanel.GetModCategory(modCategory);
-                modCardsCategory.CreateCardButton(category);
+                CardButton cardButton = modCardsCategory.CreateCardButton(category, (CardButton button) => {
+                    CardsSelectionPanel.OpenCard(category, button);
+                });
             }
         }
 
 
         public void OpenMenu() {
             gameObject.SetActive(true);
+
             ModSelectionPanel.OpenMod("Vanilla");
-            CardsSelectionPanel.GetModCategory("Vanilla").CardButtons[0].OpenCard();
+
+            CardButton cardButton = CardsSelectionPanel.GetModCategory("Vanilla").CardButtons[0];
+            CardsSelectionPanel.OpenCard(cardButton.Category, cardButton);
         }
 
         public void CloseMenu() {

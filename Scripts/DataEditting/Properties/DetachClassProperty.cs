@@ -1,6 +1,7 @@
 ﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using CardDataEditor.DataEditting.Config;
-using CardDataEditor.UI.Properites;
+using CardDataEditor.UI;
+using CardDataEditor.UI.Compoments.Properites;
 using ClassesManagerReborn;
 using ClassesManagerReborn.Util;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
-            var propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
+            var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
             propertyUI.GetComponent<UIBoolProperty>().Init((CardPropertyConfigEntry<bool>)entry);
             return propertyUI;
         }
@@ -63,7 +64,7 @@ namespace CardDataEditor.DataEditting.Properties {
         public override bool CanShowProperty() {
             ClassObject classObject = ClassesRegistry.Get(Card);
             if (classObject != null) {
-                if(Card.categories.Contains(CustomCardCategories.instance.CardCategory("ClassDetachable")) || CardDataEditorConfig.DangerMode.Value) {
+                if (Card.categories.Contains(CustomCardCategories.instance.CardCategory("ClassDetachable")) || CardDataEditorConfig.DangerMode.Value) {
                     return classObject.type != CardType.NonClassCard || haveBeenDetach;
                 } else if (classObject.type == CardType.Entry) {
                     return true;

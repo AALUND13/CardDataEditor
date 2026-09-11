@@ -5,8 +5,8 @@ using UnboundLib;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CardDataEditor.UI.Panels {
-    public class CardPreviewPanel : MonoBehaviour {
+namespace CardDataEditor.UI.Compoments.Previews {
+    public class CardPreview : MonoBehaviour {
         [Header("References")]
         public Transform CardPreviewHolder;
 

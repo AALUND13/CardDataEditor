@@ -1,6 +1,7 @@
 ﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using CardDataEditor.DataEditting.Config;
-using CardDataEditor.UI.Properites;
+using CardDataEditor.UI;
+using CardDataEditor.UI.Compoments.Properites;
 using System.Collections.Generic;
 using System.Linq;
 using UnboundLib;
@@ -20,7 +21,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
-            var propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
+            var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
             propertyUI.GetComponent<UIBoolProperty>().Init((CardPropertyConfigEntry<bool>)entry);
             return propertyUI;
         }

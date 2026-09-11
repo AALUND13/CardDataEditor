@@ -1,12 +1,13 @@
 ﻿using BepInEx;
 using CardDataEditor.DataEditting.Config;
 using CardDataEditor.Interfaces;
-using CardDataEditor.UI.Buttons;
+using CardDataEditor.UI.Compoments.Buttons;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace CardDataEditor.UI.Panels {
+namespace CardDataEditor.UI.Compoments.Categories {
     public class ModCardsCategory : MonoBehaviour {
         [Header("Prefabs")]
         public CardButton UICardOptionsPrefab;
@@ -23,6 +24,7 @@ namespace CardDataEditor.UI.Panels {
         private readonly Dictionary<string, UICategory> Subcategories = new Dictionary<string, UICategory>();
         private readonly Dictionary<CardButton, UICategory> ButtonsToCategory = new Dictionary<CardButton, UICategory>();
 
+        private static readonly bool toggleCardCategoriesExist = CardDataEditor.Plugins.Exists(plugin => plugin.Info.Metadata.GUID == "com.aalund13.rounds.toggle_cards_categories");
 
         private void Awake() {
             gameObject.SetActive(false);
@@ -55,22 +57,27 @@ namespace CardDataEditor.UI.Panels {
         }
 
 
-        public void CreateCardButton(CardOptionsConfigCategory category) {
-            string subcategory = ToggleCardsCategorieInterface.GetCardSubcategory(category.CardOptions.Card);
+        public CardButton CreateCardButton(CardOptionsConfigCategory category, UnityAction<CardButton> onButtonClicked) {
+            string subcategory = toggleCardCategoriesExist ? ToggleCardsCategorieInterface.GetCardSubcategory(category.CardOptions.Card) : "";
+
             if (!subcategory.IsNullOrWhiteSpace()) {
                 var uICategory = GetOrCreateCategory(subcategory);
-                var cardButton = uICategory.CreateButton(category);
+                var cardButton = uICategory.CreateButton(category, onButtonClicked);
 
                 CardButtons.Add(cardButton);
                 ButtonsToCategory.Add(cardButton, uICategory);
+
+                return cardButton;
             } else {
                 var cardButtonObject = GameObject.Instantiate(UICardOptionsPrefab).gameObject;
                 var cardButton = cardButtonObject.GetComponent<CardButton>();
 
                 cardButtonObject.transform.SetParent(CardsButtonContents);
                 cardButtonObject.transform.localScale = Vector3.one;
-                cardButton.Init(category);
+                cardButton.Init(category, onButtonClicked);
                 CardButtons.Add(cardButton);
+
+                return cardButton;
             }
         }
 
@@ -81,7 +88,6 @@ namespace CardDataEditor.UI.Panels {
             uiCategoryObject.transform.SetParent(CategoryButtonContents);
             uiCategoryObject.transform.localScale = Vector3.one;
             uiCategory.CategoryText.text = categoryName;
-            uiCategory.modCardsCategory = this;
 
             return uiCategory;
         }

@@ -1,5 +1,6 @@
 ﻿using CardDataEditor.DataEditting.Config;
-using CardDataEditor.UI.Properites;
+using CardDataEditor.UI;
+using CardDataEditor.UI.Compoments.Properites;
 using RarityLib.Utils;
 using System;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
-            var propertyUI = GameObject.Instantiate(UIPropetyRegsitry.Instance.UIEnumPropertyPrefab.gameObject);
+            var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIEnumPropertyPrefab.gameObject);
             var uIPropertyDropdown = propertyUI.GetComponent<UIPropertyDropdown>();
 
             var rarities = Enum.GetValues(typeof(CardInfo.Rarity)).Cast<CardInfo.Rarity>().ToArray();
