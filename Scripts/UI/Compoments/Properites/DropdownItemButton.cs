@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace CardDataEditor.UI.Compoments.Properites {
-    public class UIDropdownItemButton : MonoBehaviour {
+    public class DropdownItemButton : MonoBehaviour {
         [Header("References")]
         public TextMeshProUGUI PropertyNameText;
         public Button EnumValueButton;
 
 
-        public void Init(UIPropertyDropdown dropdown, UIPropertyDropdown.DropdownItem dropdownItem) {
+        public void Init(PropertyDropdown dropdown, PropertyDropdown.DropdownItem dropdownItem) {
             PropertyNameText.text = dropdownItem.name;
             EnumValueButton.onClick.AddListener(() => {
                 dropdown.ValueChanged(dropdownItem);

@@ -22,7 +22,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
             var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIBoolPropertyPrefab.gameObject);
-            propertyUI.GetComponent<UIBoolProperty>().Init((CardPropertyConfigEntry<bool>)entry);
+            propertyUI.GetComponent<BoolProperty>().Init((CardPropertyConfigEntry<bool>)entry);
             return propertyUI;
         }
 

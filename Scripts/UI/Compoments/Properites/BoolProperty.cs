@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace CardDataEditor.UI.Compoments.Properites {
-    public class UIBoolProperty : MonoBehaviour {
+    public class BoolProperty : MonoBehaviour {
         [Header("References")]
         public TextMeshProUGUI PropertyNameText;
         public Toggle PropertyToggle;

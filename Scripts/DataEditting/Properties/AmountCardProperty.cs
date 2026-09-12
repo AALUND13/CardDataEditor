@@ -11,7 +11,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
             var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIIntPropertyPrefab.gameObject);
-            propertyUI.GetComponent<UIIntProperty>().Init((CardPropertyConfigEntry<int>)entry);
+            propertyUI.GetComponent<IntProperty>().Init((CardPropertyConfigEntry<int>)entry);
             return propertyUI;
         }
 
