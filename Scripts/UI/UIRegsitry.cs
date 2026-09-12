@@ -7,10 +7,10 @@ namespace CardDataEditor.UI {
         public static UIRegsitry Instance { get; private set; }
 
         [Header("References")]
-        public UIIntProperty UIIntPropertyPrefab;
-        public UIFloatProperty UIFloatPropertyPrefab;
-        public UIBoolProperty UIBoolPropertyPrefab;
-        public UIPropertyDropdown UIEnumPropertyPrefab;
+        public IntProperty UIIntPropertyPrefab;
+        public FloatProperty UIFloatPropertyPrefab;
+        public BoolProperty UIBoolPropertyPrefab;
+        public PropertyDropdown UIEnumPropertyPrefab;
         public UICategory UICategoryPrefab;
 
         internal static void Init() {

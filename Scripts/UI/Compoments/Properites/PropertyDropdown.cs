@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CardDataEditor.UI.Compoments.Properites {
-    public class UIPropertyDropdown : MonoBehaviour {
+    public class PropertyDropdown : MonoBehaviour {
         public struct DropdownItem : IEquatable<DropdownItem> {
             public string name;
             public string value;
@@ -46,7 +46,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
         }
 
         [Header("Prefabs")]
-        public UIDropdownItemButton propertyButtonPrefab;
+        public DropdownItemButton propertyButtonPrefab;
 
         [Header("References")]
         public TextMeshProUGUI PropertyNameText;
@@ -55,7 +55,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
         public TMP_InputField PropertySearchInputField;
 
         public Action<DropdownItem> OnValueChanged;
-        public Dictionary<DropdownItem, UIDropdownItemButton> PropertyDropdownItems = new Dictionary<DropdownItem, UIDropdownItemButton>();
+        public Dictionary<DropdownItem, DropdownItemButton> PropertyDropdownItems = new Dictionary<DropdownItem, DropdownItemButton>();
 
         public DropdownItem[] DropdownItems;
         public DropdownItem SelectedDropdownItem;
@@ -89,7 +89,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
 
             foreach (DropdownItem dropdownItem in dropdownItems) {
                 GameObject dropdownButtonObject = GameObject.Instantiate(propertyButtonPrefab.gameObject);
-                UIDropdownItemButton dropdownButton = dropdownButtonObject.GetComponent<UIDropdownItemButton>();
+                DropdownItemButton dropdownButton = dropdownButtonObject.GetComponent<DropdownItemButton>();
 
                 dropdownButtonObject.transform.SetParent(PropertyValuesContent);
                 dropdownButton.Init(this, dropdownItem);
@@ -112,7 +112,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
 
             foreach (DropdownItem dropdownItem in DropdownItems) {
                 GameObject dropdownButtonObject = GameObject.Instantiate(propertyButtonPrefab.gameObject);
-                UIDropdownItemButton dropdownButton = dropdownButtonObject.GetComponent<UIDropdownItemButton>();
+                DropdownItemButton dropdownButton = dropdownButtonObject.GetComponent<DropdownItemButton>();
 
                 dropdownButtonObject.transform.SetParent(PropertyValuesContent);
                 dropdownButton.Init(this, dropdownItem);
