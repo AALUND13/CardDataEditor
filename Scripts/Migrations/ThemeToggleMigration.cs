@@ -19,11 +19,11 @@ namespace CardDataEditor.Scripts.Migration {
 
 
         private void Start() {
-            CardOptionsConfigManager.OnConfigFirstCreated += (CardOptionsConfig config) => MigrateRarityToggle(config);
+            CardOptionsConfigManager.OnConfigFirstCreated += (CardDataConfigFile config) => MigrateRarityToggle(config);
         }
 
 
-        public void MigrateRarityToggle(CardOptionsConfig configFile) {
+        public void MigrateRarityToggle(CardDataConfigFile configFile) {
             Profiler.Start("ThemeToggleMigration.MigrateRarityToggle");
 
             configFile.SaveOnChange = false;

@@ -11,10 +11,10 @@ namespace CardDataEditor.UI.Compoments.Previews {
         public Transform CardPreviewHolder;
 
         private GameObject CurrentPreviewCard;
-        private CardOptionsConfigCategory CurrentCardOptions;
+        private CardOptionsConfigEntry CurrentCardOptions;
 
 
-        public void CreateCardPreview(CardOptionsConfigCategory cardOptions) {
+        public void CreateCardPreview(CardOptionsConfigEntry cardOptions) {
             if (CurrentPreviewCard != null) {
                 CurrentCardOptions.OnEntryChanged -= ApplyPropertyToPreviewCard;
                 Destroy(CurrentPreviewCard);

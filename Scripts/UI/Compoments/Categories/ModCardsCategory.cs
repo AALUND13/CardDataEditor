@@ -57,7 +57,7 @@ namespace CardDataEditor.UI.Compoments.Categories {
         }
 
 
-        public CardButton CreateCardButton(CardOptionsConfigCategory category, UnityAction<CardButton> onButtonClicked) {
+        public CardButton CreateCardButton(CardOptionsConfigEntry category, UnityAction<CardButton> onButtonClicked) {
             string subcategory = toggleCardCategoriesExist ? ToggleCardsCategorieInterface.GetCardSubcategory(category.CardOptions.Card) : "";
 
             if (!subcategory.IsNullOrWhiteSpace()) {

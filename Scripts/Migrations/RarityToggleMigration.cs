@@ -21,7 +21,7 @@ namespace CardDataEditor.Scripts.Migration {
 
 
         private void Start() {
-            CardOptionsConfigManager.OnConfigFirstCreated += (CardOptionsConfig config) => MigrateRarityToggle(config);
+            CardOptionsConfigManager.OnConfigFirstCreated += (CardDataConfigFile config) => MigrateRarityToggle(config);
         }
 
 
@@ -32,7 +32,7 @@ namespace CardDataEditor.Scripts.Migration {
             .ToList();
 
 
-        public void MigrateRarityToggle(CardOptionsConfig configFile) {
+        public void MigrateRarityToggle(CardDataConfigFile configFile) {
             Profiler.Start("RarityToggleMigration.MigrateRarityToggle");
 
             var sanitizedCardNames = new Dictionary<string, CardInfo>();

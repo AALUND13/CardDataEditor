@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 
 namespace CardDataEditor.DataEditting.Config {
-    public class CardOptionsConfigCategory {
+    public class CardOptionsConfigEntry {
         public readonly CardOptions CardOptions;
-        public readonly CardOptionsConfig ConfigFile;
+        public readonly CardDataConfigFile ConfigFile;
         public readonly List<CardPropertyConfigEntry> ConfigEntries = new List<CardPropertyConfigEntry>();
 
         public event Action<CardPropertyConfigEntry> OnEntryChanged;
@@ -17,7 +17,7 @@ namespace CardDataEditor.DataEditting.Config {
             ConfigEntries.TrueForAll(entry => entry.IsDefaultValue);
 
 
-        public CardOptionsConfigCategory(CardOptions cardOptions, CardOptionsConfig configFile) {
+        public CardOptionsConfigEntry(CardOptions cardOptions, CardDataConfigFile configFile) {
             CardOptions = cardOptions;
             ConfigFile = configFile;
 

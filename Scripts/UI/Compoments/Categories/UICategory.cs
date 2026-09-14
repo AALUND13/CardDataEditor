@@ -27,7 +27,7 @@ namespace CardDataEditor.UI.Compoments.Categories {
         public bool IsOpened { get; private set; }
 
 
-        public CardButton CreateButton(CardOptionsConfigCategory category, UnityAction<CardButton> onButtonClicked) {
+        public CardButton CreateButton(CardOptionsConfigEntry category, UnityAction<CardButton> onButtonClicked) {
             var uiCardOptionsObject = GameObject.Instantiate(UICardOptionsPrefab).gameObject;
             var uiCardOptions = uiCardOptionsObject.GetComponent<CardButton>();
 

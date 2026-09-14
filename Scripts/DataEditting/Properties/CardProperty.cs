@@ -13,7 +13,7 @@ namespace CardDataEditor.DataEditting.Properties {
 
         public virtual void ApplyPropertyToPreviewCard(GameObject cardObject, CardInfo cardInfo) { }
 
-        public abstract CardPropertyConfigEntry CreateCardPropertyConfigEntry(CardOptionsConfig configFile);
+        public abstract CardPropertyConfigEntry CreateCardPropertyConfigEntry(CardDataConfigFile configFile);
 
         public abstract string GetCategoryName();
         public abstract string GetPropertyName();
@@ -35,7 +35,7 @@ namespace CardDataEditor.DataEditting.Properties {
         public abstract T DeserializeValueTyped(byte[] data);
 
 
-        public override CardPropertyConfigEntry CreateCardPropertyConfigEntry(CardOptionsConfig configFile) =>
+        public override CardPropertyConfigEntry CreateCardPropertyConfigEntry(CardDataConfigFile configFile) =>
             new CardPropertyConfigEntry<T>(GetSerializeName(), this, configFile);
 
         public override void ApplyProperty(object value) =>
