@@ -6,9 +6,6 @@ using UnityEngine;
 
 namespace CardDataEditor.DataEditting.Properties {
     public class AmountCardProperty : CardProperty<int> {
-        public AmountCardProperty(CardInfo card) : base(card) { }
-
-
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
             var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIIntPropertyPrefab.gameObject);
             propertyUI.GetComponent<IntProperty>().Init((CardPropertyConfigEntry<int>)entry);
@@ -16,16 +13,16 @@ namespace CardDataEditor.DataEditting.Properties {
         }
 
 
-        public override string GetCategoryName() {
-            return "Basic";
-        }
-
         public override string GetPropertyName() {
             return "Card Limit";
         }
 
         public override string GetSerializeName() {
             return "Amount";
+        }
+
+        public override string GetCategoryName() {
+            return "Conditions";
         }
 
 

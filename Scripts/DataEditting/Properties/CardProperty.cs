@@ -3,11 +3,10 @@ using UnityEngine;
 
 namespace CardDataEditor.DataEditting.Properties {
     public abstract class CardProperty {
-        public CardInfo Card { get; private set; }
+        public CardInfo Card { get; internal set; }
+        public CardOptions CardOptions { get; internal set; }
 
-        public CardProperty(CardInfo card) {
-            Card = card;
-        }
+        public virtual void Init() { }
 
         public virtual bool CanShowProperty() => true;
         public virtual GameObject CreateUIProperty(CardPropertyConfigEntry entry) => null;
@@ -29,8 +28,6 @@ namespace CardDataEditor.DataEditting.Properties {
     }
 
     public abstract class CardProperty<T> : CardProperty {
-        public CardProperty(CardInfo card) : base(card) { }
-
         public abstract void ApplyProperty(T value);
         public abstract T GetPropertyTyped();
 

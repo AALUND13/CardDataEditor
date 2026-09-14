@@ -11,10 +11,10 @@ using UnityEngine;
 namespace CardDataEditor.DataEditting.Properties {
     public class DetachClassProperty : CardProperty<bool> {
         private bool haveBeenDetach = false;
-        private readonly CardInfo[][] savedRequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
-        private readonly CardType savedCardType = CardType.NonClassCard;
+        private CardInfo[][] savedRequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
+        private CardType savedCardType = CardType.NonClassCard;
 
-        public DetachClassProperty(CardInfo card) : base(card) {
+        public override void Init() {
             var classObject = ClassesRegistry.Get(Card);
             if (classObject != null) {
                 savedRequiredClassesTree = classObject.RequiredClassesTree;

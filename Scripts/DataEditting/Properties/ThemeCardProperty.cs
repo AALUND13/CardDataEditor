@@ -7,9 +7,6 @@ using UnityEngine;
 
 namespace CardDataEditor.DataEditting.Properties {
     public class ThemeCardProperty : CardProperty<CardThemeColor.CardThemeColorType> {
-        public ThemeCardProperty(CardInfo card) : base(card) { }
-
-
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
             var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIEnumPropertyPrefab.gameObject);
             var uIPropertyDropdown = propertyUI.GetComponent<PropertyDropdown>();

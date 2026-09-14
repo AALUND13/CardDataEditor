@@ -10,11 +10,11 @@ using WillsWackyManagers.Utils;
 
 namespace CardDataEditor.DataEditting.Properties {
     public class DetechCurseProperty : CardProperty<bool> {
-        private readonly bool hasCurseCategory = false;
+        private bool hasCurseCategory = false;
         private bool haveBeenDetach = false;
         private bool isCurseCard = false;
 
-        public DetechCurseProperty(CardInfo card) : base(card) {
+        public override void Init() {
             hasCurseCategory = Card.categories.Contains(CustomCardCategories.instance.CardCategory("Curse"));
             isCurseCard = CurseManager.instance.IsCurse(Card);
         }
