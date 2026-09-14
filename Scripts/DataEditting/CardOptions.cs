@@ -18,7 +18,9 @@ namespace CardDataEditor.DataEditting {
         public void AddProperty(Type type) {
             Profiler.Start("CardOptions.AddProperty");
             if (typeof(CardProperty).IsAssignableFrom(type)) {
-                var propertyInstance = (CardProperty)Activator.CreateInstance(type, new object[] { Card });
+                var propertyInstance = (CardProperty)Activator.CreateInstance(type);
+                propertyInstance.Card = Card;
+                propertyInstance.CardOptions = this;
                 Properties[type] = propertyInstance;
             }
             Profiler.End("CardOptions.AddProperty");

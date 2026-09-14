@@ -8,9 +8,6 @@ using UnityEngine;
 
 namespace CardDataEditor.DataEditting.Properties {
     public class RarityCardProperty : CardProperty<CardInfo.Rarity> {
-        public RarityCardProperty(CardInfo card) : base(card) { }
-
-
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
             var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIEnumPropertyPrefab.gameObject);
             var uIPropertyDropdown = propertyUI.GetComponent<PropertyDropdown>();
