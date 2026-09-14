@@ -6,7 +6,7 @@ namespace CardDataEditor.DataEditting.Config {
     public abstract class CardPropertyConfigEntry {
         public readonly string Name;
         public readonly CardProperty CardOptionProperty;
-        public readonly CardOptionsConfig ConfigFile;
+        public readonly CardDataConfigFile ConfigFile;
 
         public event Action OnValueChanged;
 
@@ -23,13 +23,34 @@ namespace CardDataEditor.DataEditting.Config {
             }
         }
 
-        protected CardPropertyConfigEntry(string name, CardProperty cardOptionProperty, CardOptionsConfig configFile) {
+        protected CardPropertyConfigEntry(string name, CardProperty cardOptionProperty, CardDataConfigFile configFile) {
+            if (name == null) {
+                throw new ArgumentNullException(
+                    nameof(name)
+                );
+            } else if (cardOptionProperty == null) {
+                throw new ArgumentNullException(
+                    nameof(cardOptionProperty)
+                );
+            } else if (configFile == null) {
+                throw new ArgumentNullException(
+                    nameof(configFile)
+                );
+            } else if (cardOptionProperty.ConfigEntry != null) {
+                throw new InvalidOperationException(
+                    $"Card property ${cardOptionProperty.GetPropertyName()} is already assigned to a config entry\n" +
+                    $"You cannot assigned multiple config entry to a single card property."
+                );
+            }
+
             Name = name;
             CardOptionProperty = cardOptionProperty;
             ConfigFile = configFile;
 
             DefaultValue = cardOptionProperty.GetProperty();
             value = DefaultValue;
+
+            cardOptionProperty.ConfigEntry = this;
         }
 
         public void SyncWithConfig() {
@@ -61,7 +82,7 @@ namespace CardDataEditor.DataEditting.Config {
             set => Value = value;
         }
 
-        public CardPropertyConfigEntry(string name, CardProperty<T> cardOptionProperty, CardOptionsConfig configFile) : base(name, cardOptionProperty, configFile) {
+        public CardPropertyConfigEntry(string name, CardProperty<T> cardOptionProperty, CardDataConfigFile configFile) : base(name, cardOptionProperty, configFile) {
             CardOptionPropertyTyped = cardOptionProperty;
             DefaultValueTyped = cardOptionProperty.GetPropertyTyped();
         }
