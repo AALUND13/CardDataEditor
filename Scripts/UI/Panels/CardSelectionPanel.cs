@@ -34,7 +34,7 @@ namespace CardDataEditor.UI.Panels {
         }
 
 
-        public void OpenCard(CardOptionsConfigCategory category, CardButton button) {
+        public void OpenCard(CardOptionsConfigEntry category, CardButton button) {
             if (currentCardButton != null) {
                 currentCardButton.IsSelected = false;
                 currentCardButton.UpdateVisualAnimation();

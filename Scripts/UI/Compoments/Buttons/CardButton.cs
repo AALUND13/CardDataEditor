@@ -19,12 +19,12 @@ namespace CardDataEditor.UI.Compoments.Buttons {
         public float DeselectMultiplier = 0.70f;
 
         [HideInInspector] public bool IsSelected = false;
-        [HideInInspector] public CardOptionsConfigCategory Category;
+        [HideInInspector] public CardOptionsConfigEntry Category;
 
         private Coroutine colorAnimation;
 
 
-        public void Init(CardOptionsConfigCategory category, UnityAction<CardButton> onClicked) {
+        public void Init(CardOptionsConfigEntry category, UnityAction<CardButton> onClicked) {
             Category = category;
             Category.OnEntryChanged += (_) => {
                 UpdateVisual();

@@ -7,8 +7,8 @@ using System.IO;
 using System.Linq;
 
 namespace CardDataEditor.DataEditting.Config {
-    public class CardOptionsConfig {
-        public readonly List<CardOptionsConfigCategory> Categories = new List<CardOptionsConfigCategory>();
+    public class CardDataConfigFile {
+        public readonly List<CardOptionsConfigEntry> Categories = new List<CardOptionsConfigEntry>();
 
         private const string ConfigFileName = "CardOptions.bin";
         private const string ConfigFolderName = "CardDataEditor";
@@ -19,11 +19,11 @@ namespace CardDataEditor.DataEditting.Config {
             => File.Exists(ConfigPath);
 
         public bool SaveOnChange = true;
-        public event Action<CardOptionsConfigCategory, CardPropertyConfigEntry> CategoryChanged;
+        public event Action<CardOptionsConfigEntry, CardPropertyConfigEntry> CategoryChanged;
 
 
-        public CardOptionsConfigCategory AddCategory(CardOptions cardOptions) {
-            var category = new CardOptionsConfigCategory(cardOptions, this);
+        public CardOptionsConfigEntry AddCategory(CardOptions cardOptions) {
+            var category = new CardOptionsConfigEntry(cardOptions, this);
             category.OnEntryChanged += (CardPropertyConfigEntry entry) => {
                 CategoryChanged?.Invoke(category, entry);
                 if (SaveOnChange) SaveConfig();
@@ -101,7 +101,7 @@ namespace CardDataEditor.DataEditting.Config {
                         throw new EndOfStreamException($"Unexpected end of config while reading category '{categoryName}'.");
                     }
 
-                    CardOptionsConfigCategory category = FindCategory(categoryName);
+                    CardOptionsConfigEntry category = FindCategory(categoryName);
                     if (category == null) {
                         LoggerUtils.Log(LogLevel.Warning, $"Unknow category name '{categoryName}', skipping category.");
                         continue;
@@ -115,7 +115,7 @@ namespace CardDataEditor.DataEditting.Config {
         }
 
 
-        public CardOptionsConfigCategory FindCategory(string name) {
+        public CardOptionsConfigEntry FindCategory(string name) {
             foreach (var category in Categories) {
                 if (category.CardOptions.Card.name == name)
                     return category;

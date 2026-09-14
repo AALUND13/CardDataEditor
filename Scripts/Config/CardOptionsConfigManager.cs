@@ -5,13 +5,13 @@ using System;
 
 namespace CardDataEditor.DataEditting.Config {
     public static class CardOptionsConfigManager {
-        public static CardOptionsConfig Config { get; private set; }
-        public static event Action<CardOptionsConfig> OnConfigFirstCreated;
+        public static CardDataConfigFile Config { get; private set; }
+        public static event Action<CardDataConfigFile> OnConfigFirstCreated;
 
         public static void RegisterConfig() {
             Profiler.Start("CardOptionsConfigManager.RegisterConfig");
 
-            Config = new CardOptionsConfig();
+            Config = new CardDataConfigFile();
             try {
                 LoggerUtils.Log(LogLevel.Info, "Loading cards options config...");
                 Profiler.Start("CardOptionsConfigManager.RegisterConfig.AddCategories");
@@ -21,7 +21,7 @@ namespace CardDataEditor.DataEditting.Config {
                 Profiler.End("CardOptionsConfigManager.RegisterConfig.AddCategories");
 
                 Profiler.Start("CardOptionsConfigManager.RegisterConfig.LoadOrCreate");
-                if (!CardOptionsConfig.DoesConfigFileExists) {
+                if (!CardDataConfigFile.DoesConfigFileExists) {
                     OnConfigFirstCreated?.Invoke(Config);
                     Config.SaveConfig();
                 } else {
