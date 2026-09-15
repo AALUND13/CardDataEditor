@@ -5,19 +5,19 @@ namespace CardDataEditor.DataEditting.Properties {
     public abstract class CardProperty {
         public CardInfo Card { get; internal set; }
         public CardOptions CardOptions { get; internal set; }
+        public CardPropertyConfigEntry ConfigEntry { get; internal set; }
 
-        public virtual void Init() { }
+        public virtual void OnInit() { }
+        public virtual void ApplyPropertyToPreviewCard(GameObject cardObject, CardInfo cardInfo) { }
 
         public virtual bool CanShowProperty() => true;
         public virtual GameObject CreateUIProperty(CardPropertyConfigEntry entry) => null;
-
-        public virtual void ApplyPropertyToPreviewCard(GameObject cardObject, CardInfo cardInfo) { }
 
         public abstract CardPropertyConfigEntry CreateCardPropertyConfigEntry(CardDataConfigFile configFile);
 
         public abstract string GetCategoryName();
         public abstract string GetPropertyName();
-        public virtual string GetDescription() => null;
+
         public virtual string GetSerializeName() => GetPropertyName();
 
         public abstract void ApplyProperty(object value);

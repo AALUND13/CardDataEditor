@@ -11,6 +11,7 @@ namespace CardDataEditor.UI {
         public FloatProperty UIFloatPropertyPrefab;
         public BoolProperty UIBoolPropertyPrefab;
         public PropertyDropdown UIEnumPropertyPrefab;
+        public ListProperty UListPropertyPrefab;
         public UICategory UICategoryPrefab;
 
         internal static void Init() {

@@ -9,10 +9,17 @@ namespace CardDataEditor.DataEditting.Registries {
 
 
         internal static void RegisterDefaultProperties() {
+            // Basic
             RegisterProperty<RarityCardProperty>();
             RegisterProperty<ThemeCardProperty>();
-            RegisterProperty<DetachClassProperty>();
+
+            // Conditions
             RegisterProperty<AmountCardProperty>();
+            RegisterProperty<BlacklistCardsProperty>();
+            RegisterProperty<RequireCardsProperty>();
+
+            // Detachments
+            RegisterProperty<DetachClassProperty>();
             if (CardDataEditor.Plugins.Exists(plugin => plugin.Info.Metadata.GUID == "com.willuwontu.rounds.managers")) {
                 RegisterProperty<DetechCurseProperty>();
             }
