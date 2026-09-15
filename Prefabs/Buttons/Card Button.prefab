@@ -142,6 +142,9 @@ MonoBehaviour:
   RarityGraphic: {fileID: 8371556045846562859}
   ThemeGraphic: {fileID: 3557956902916685698}
   OpenButton: {fileID: 9151998610274091827}
+  SelectMultiplier: 0.85
+  DeselectMultiplier: 0.7
+  IsSelected: 0
 --- !u!1 &8111911504495841714
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,12 +309,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 18
+  m_fontSize: 0
   m_fontSizeBase: 18
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
+  m_fontSizeMax: 18
   m_fontStyle: 0
   m_textAlignment: 513
   m_characterSpacing: 0
@@ -323,7 +326,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 1
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
