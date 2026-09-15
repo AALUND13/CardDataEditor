@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CardDataEditor.UI.Compoments.Properites {
-    public class PropertyDropdown : MonoBehaviour {
+    public class DropdownProperty : MonoBehaviour {
         public struct DropdownItem : IEquatable<DropdownItem> {
             public string name;
             public string value;
@@ -49,6 +49,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
         public DropdownItemButton propertyButtonPrefab;
 
         [Header("References")]
+        public Canvas DropdownCamvas;
         public TextMeshProUGUI PropertyNameText;
         public RectTransform PropertyValuesContent;
         public RectTransform PropertyDropdownViewport;
@@ -66,6 +67,8 @@ namespace CardDataEditor.UI.Compoments.Properites {
 
         private void Awake() {
             PropertyDropdownViewport.gameObject.SetActive(false);
+            DropdownCamvas.sortingLayerName = "MostFront";
+            DropdownCamvas.overrideSorting = true;
         }
 
 

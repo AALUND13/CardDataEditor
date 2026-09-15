@@ -10,10 +10,10 @@ namespace CardDataEditor.DataEditting.Properties {
     public class RarityCardProperty : CardProperty<CardInfo.Rarity> {
         public override GameObject CreateUIProperty(CardPropertyConfigEntry entry) {
             var propertyUI = GameObject.Instantiate(UIRegsitry.Instance.UIEnumPropertyPrefab.gameObject);
-            var uIPropertyDropdown = propertyUI.GetComponent<PropertyDropdown>();
+            var uIPropertyDropdown = propertyUI.GetComponent<DropdownProperty>();
 
             var rarities = Enum.GetValues(typeof(CardInfo.Rarity)).Cast<CardInfo.Rarity>().ToArray();
-            var items = rarities.Select(r => new PropertyDropdown.DropdownItem(
+            var items = rarities.Select(r => new DropdownProperty.DropdownItem(
                 $"<color=#{ColorUtility.ToHtmlStringRGB(GetCardRarityColor(r))}>{r.ToString().ToUpper()}{(r.ToString() == entry.DefaultValue.ToString() ? " (Default)" : "")}",
                 r.ToString()
             )).ToArray();
@@ -22,7 +22,7 @@ namespace CardDataEditor.DataEditting.Properties {
             var defaultItem = items.First(i => i.value == entry.DefaultValue.ToString());
 
             uIPropertyDropdown.Init(GetPropertyName(), items, selectedItem, defaultItem);
-            uIPropertyDropdown.OnValueChanged += (PropertyDropdown.DropdownItem dropdownItem) => {
+            uIPropertyDropdown.OnValueChanged += (DropdownProperty.DropdownItem dropdownItem) => {
                 CardInfo.Rarity theme = Enum.GetValues(typeof(CardInfo.Rarity))
                     .Cast<CardInfo.Rarity>()
                     .FirstOrDefault(r => r.ToString() == dropdownItem.value);

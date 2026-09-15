@@ -1121,6 +1121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   propertyButtonPrefab: {fileID: 7574947212032604947, guid: 97e97013f5706a04e81196a5654307a3,
     type: 3}
+  DropdownCamvas: {fileID: 8013593869806144758}
   PropertyNameText: {fileID: 7676825374420306510}
   PropertyValuesContent: {fileID: 2346150035777077946}
   PropertyDropdownViewport: {fileID: 1642357864285489860}

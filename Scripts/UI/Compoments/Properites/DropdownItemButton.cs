@@ -9,7 +9,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
         public Button EnumValueButton;
 
 
-        public void Init(PropertyDropdown dropdown, PropertyDropdown.DropdownItem dropdownItem) {
+        public void Init(DropdownProperty dropdown, DropdownProperty.DropdownItem dropdownItem) {
             PropertyNameText.text = dropdownItem.name;
             EnumValueButton.onClick.AddListener(() => {
                 dropdown.ValueChanged(dropdownItem);
