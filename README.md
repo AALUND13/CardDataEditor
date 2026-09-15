@@ -4,6 +4,8 @@
 - **Rarity**
 - **Theme**
 - **Card Amount**
+- **Blacklist Cards**
+- **Require Cards**
 - **Detach From Class** - available for certain class cards
 - **Detach From Curse** - available for curse cards  
 
