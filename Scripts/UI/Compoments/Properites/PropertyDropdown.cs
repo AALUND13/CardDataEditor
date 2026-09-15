@@ -115,6 +115,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
                 DropdownItemButton dropdownButton = dropdownButtonObject.GetComponent<DropdownItemButton>();
 
                 dropdownButtonObject.transform.SetParent(PropertyValuesContent);
+                dropdownButtonObject.transform.localScale = Vector3.one;
                 dropdownButton.Init(this, dropdownItem);
 
                 PropertyDropdownItems.Add(dropdownItem, dropdownButton);

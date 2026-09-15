@@ -114,6 +114,7 @@ namespace CardDataEditor.UI.Compoments.Properites {
 
             GameObject ListItemButtonObject = GameObject.Instantiate(listButtonPrefab.gameObject, PropertyValuesContent);
             ListItemElement button = ListItemButtonObject.GetComponent<ListItemElement>();
+            ListItemButtonObject.transform.localScale = Vector3.one;
             button.Init(this, item, listItems.Count + 1);
 
             PropertyListItems.Add(item, button);
