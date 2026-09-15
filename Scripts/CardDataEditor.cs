@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using CardDataEditor.Conditions;
 using CardDataEditor.DataEditting.Config;
 using CardDataEditor.DataEditting.Registries;
 using CardDataEditor.UI;
@@ -73,6 +74,8 @@ namespace CardDataEditor {
             });
 
             Unbound.RegisterHandshake(ModId, OnHandShakeCompleted);
+
+            ModdingUtils.Utils.Cards.instance.AddCardValidationFunction(RequireCardsCondition.PlayerAllowedCard);
 
             CreateCardDataEditorCanvas();
         }

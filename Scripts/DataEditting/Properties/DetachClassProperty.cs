@@ -14,7 +14,7 @@ namespace CardDataEditor.DataEditting.Properties {
         private CardInfo[][] savedRequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
         private CardType savedCardType = CardType.NonClassCard;
 
-        public override void Init() {
+        public override void OnInit() {
             var classObject = ClassesRegistry.Get(Card);
             if (classObject != null) {
                 savedRequiredClassesTree = classObject.RequiredClassesTree;

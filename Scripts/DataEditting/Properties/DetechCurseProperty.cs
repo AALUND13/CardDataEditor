@@ -14,7 +14,7 @@ namespace CardDataEditor.DataEditting.Properties {
         private bool haveBeenDetach = false;
         private bool isCurseCard = false;
 
-        public override void Init() {
+        public override void OnInit() {
             hasCurseCategory = Card.categories.Contains(CustomCardCategories.instance.CardCategory("Curse"));
             isCurseCard = CurseManager.instance.IsCurse(Card);
         }
