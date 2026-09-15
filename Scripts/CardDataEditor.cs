@@ -4,6 +4,7 @@ using BepInEx.Logging;
 using CardDataEditor.DataEditting.Config;
 using CardDataEditor.DataEditting.Registries;
 using CardDataEditor.UI;
+using CardDataEditor.UI.ContextMenu.Cards;
 using CardDataEditor.UI.Menus;
 using CardDataEditor.Utils.Debug;
 using HarmonyLib;
@@ -66,7 +67,9 @@ namespace CardDataEditor {
             this.ExecuteAfterFrames(60, () => {
                 CardOptionRegistry.RegisterAllCardOptions();
                 CardOptionsConfigManager.RegisterConfig();
+                
                 CardDataEditorMenu.Instance.Init(CardOptionsConfigManager.Config);
+                CardsListContextMenu.Instance.Init(CardOptionsConfigManager.Config);
             });
 
             Unbound.RegisterHandshake(ModId, OnHandShakeCompleted);
