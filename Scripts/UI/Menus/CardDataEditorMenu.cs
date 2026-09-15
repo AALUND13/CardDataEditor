@@ -3,6 +3,7 @@ using CardDataEditor.UI.Compoments.Buttons;
 using CardDataEditor.UI.Compoments.Categories;
 using CardDataEditor.UI.Compoments.Previews;
 using CardDataEditor.UI.Panels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnboundLib.Utils;
@@ -19,6 +20,10 @@ namespace CardDataEditor.UI.Menus {
         public CardPropertiesPanel CardPropertiesPanel;
 
 
+        public event Action OnMenuOpen;
+        public event Action OnMenuClose;
+
+
         private readonly List<string> createdModCategories = new List<string>();
 
 
@@ -31,8 +36,8 @@ namespace CardDataEditor.UI.Menus {
         }
 
 
-        public void Init(CardOptionsConfig configFile) {
-            foreach (CardOptionsConfigCategory category in configFile.Categories) {
+        public void Init(CardDataConfigFile configFile) {
+            foreach (CardOptionsConfigEntry category in configFile.Categories) {
                 string modCategory = GetCardModCategory(category.CardOptions.Card);
                 if (!createdModCategories.Contains(modCategory)) {
                     ModSelectionPanel.CreateModButton(modCategory);
@@ -51,14 +56,17 @@ namespace CardDataEditor.UI.Menus {
         public void OpenMenu() {
             gameObject.SetActive(true);
 
-            ModSelectionPanel.OpenMod("Vanilla");
-
             CardButton cardButton = CardsSelectionPanel.GetModCategory("Vanilla").CardButtons[0];
+            ModSelectionPanel.OpenMod("Vanilla");
             CardsSelectionPanel.OpenCard(cardButton.Category, cardButton);
+            
+            OnMenuOpen?.Invoke();
         }
 
         public void CloseMenu() {
             gameObject.SetActive(false);
+            
+            OnMenuClose?.Invoke();
         }
 
 
@@ -67,7 +75,7 @@ namespace CardDataEditor.UI.Menus {
         }
 
 
-        public void OpenCard(CardOptionsConfigCategory category) {
+        public void OpenCard(CardOptionsConfigEntry category) {
             CardPreviewPanel.CreateCardPreview(category);
             CardPropertiesPanel.CreateCardProperties(category);
         }
