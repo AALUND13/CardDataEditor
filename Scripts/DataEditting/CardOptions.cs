@@ -21,6 +21,7 @@ namespace CardDataEditor.DataEditting {
                 var propertyInstance = (CardProperty)Activator.CreateInstance(type);
                 propertyInstance.Card = Card;
                 propertyInstance.CardOptions = this;
+                propertyInstance.OnInit();
                 Properties[type] = propertyInstance;
             }
             Profiler.End("CardOptions.AddProperty");
