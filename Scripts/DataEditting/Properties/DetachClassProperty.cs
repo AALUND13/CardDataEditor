@@ -78,15 +78,23 @@ namespace CardDataEditor.DataEditting.Properties {
             if (classObject == null) return;
 
             var className = Card.GetComponent<ClassNameMono>();
-            if (value) {
-                if (className != null) className.enabled = false;
+            if (value && !haveBeenDetach) {
+                if (className != null) {
+                    className.enabled = false;
+                }
+
                 classObject.RequiredClassesTree = new CardInfo[1][] { new CardInfo[0] };
                 classObject.SetPropertyValue("type", CardType.NonClassCard);
+
                 haveBeenDetach = true;
-            } else {
-                if (className != null) className.enabled = true;
+            } else if (haveBeenDetach) {
+                if (className != null) {
+                    className.enabled = true;
+                }
+                
                 classObject.RequiredClassesTree = savedRequiredClassesTree;
                 classObject.SetPropertyValue("type", savedCardType);
+
                 haveBeenDetach = false;
             }
         }

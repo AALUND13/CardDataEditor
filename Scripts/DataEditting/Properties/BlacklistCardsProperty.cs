@@ -1,6 +1,5 @@
 ﻿using BepInEx.Logging;
 using CardDataEditor.DataEditting.Config;
-using CardDataEditor.DataEditting.Properties;
 using CardDataEditor.UI;
 using CardDataEditor.UI.Compoments.Properites;
 using CardDataEditor.UI.ContextMenu.Cards;
@@ -69,12 +68,14 @@ namespace CardDataEditor.DataEditting.Properties {
 
         public override void ApplyProperty(List<CardInfo> value) {
             var classObject = ClassesRegistry.Get(Card);
-            if (classObject == null) {
+            if (classObject == null && value.Count > 0) {
                 classObject = ClassesRegistry.Register(Card, CardType.NonClassCard);
             }
 
-            classObject.BlackList.ForEach(bc => classObject.DeBhitelist(bc));
-            value.ForEach(bc => classObject.Blacklist(bc));
+            if (classObject != null) {
+                classObject.BlackList.ForEach(bc => classObject.DeBhitelist(bc));
+                value.ForEach(bc => classObject.Blacklist(bc));
+            }
         }
 
         public override List<CardInfo> GetPropertyTyped() {
