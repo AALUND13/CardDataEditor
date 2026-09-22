@@ -67,13 +67,21 @@ namespace CardDataEditor.DataEditting.Config {
         }
 
         private bool CompareObjects(object a, object b) {
-            if(a is IList listA && b is IList listB) {
+            if (ReferenceEquals(a, b)) {
+                return true;
+            }
+
+            if (a is null || b is null) {
+                return false;
+            }
+
+            if (a is IList listA && b is IList listB) {
                 if (listA.Count != listB.Count) {
                     return false;
                 }
 
-                for(int i = 0; i < listA.Count; i++) {
-                    if (!Equals(listA[i], listB[i])) {
+                for (int i = 0; i < listA.Count; i++) {
+                    if (!CompareObjects(listA[i], listB[i])) {
                         return false;
                     }
                 }
