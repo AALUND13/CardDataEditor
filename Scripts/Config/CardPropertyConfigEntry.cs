@@ -1,5 +1,6 @@
 ﻿using CardDataEditor.DataEditting.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CardDataEditor.DataEditting.Config {
@@ -11,7 +12,7 @@ namespace CardDataEditor.DataEditting.Config {
         public event Action OnValueChanged;
 
         public object DefaultValue { get; }
-        public bool IsDefaultValue => Equals(CardOptionProperty.GetProperty(), DefaultValue);
+        public bool IsDefaultValue => CompareObjects(CardOptionProperty.GetProperty(), DefaultValue);
 
         private object value;
         public object Value {
@@ -65,6 +66,23 @@ namespace CardDataEditor.DataEditting.Config {
             Value = CardOptionProperty.DeserializeValue(data);
         }
 
+        private bool CompareObjects(object a, object b) {
+            if(a is IList listA && b is IList listB) {
+                if (listA.Count != listB.Count) {
+                    return false;
+                }
+
+                for(int i = 0; i < listA.Count; i++) {
+                    if (!Equals(listA[i], listB[i])) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return Equals(a, b);
+        }
     }
 
 
