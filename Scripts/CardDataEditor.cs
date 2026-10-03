@@ -10,6 +10,7 @@ using CardDataEditor.UI.Menus;
 using CardDataEditor.Utils.Debug;
 using HarmonyLib;
 using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -41,9 +42,9 @@ namespace CardDataEditor {
         public static AssetBundle Assets;
 
         public static List<BaseUnityPlugin> Plugins;
-        public static readonly ConfigFile ModConfig = new ConfigFile(Path.Combine(Paths.ConfigPath, "CardDataEditor", "CardDataEditor.cfg"), true);
+        public static ConfigFile ModConfig;
 
-
+        internal static bool ClassesInitialized = false;
 
         void Awake() {
             Instance = this;
@@ -56,6 +57,7 @@ namespace CardDataEditor {
             gameObject.AddComponent<CardDataEditorMenuHandler>();
 
             Assets = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("card_data_editor", typeof(CardDataEditor).Assembly);
+            ModConfig = new ConfigFile(Path.Combine(Paths.ConfigPath, "CardDataEditor", "CardDataEditor.cfg"), true);
         }
 
         void Start() {
@@ -65,13 +67,7 @@ namespace CardDataEditor {
             PropertyRegistry.RegisterDefaultProperties();
             UIRegsitry.Init();
 
-            this.ExecuteAfterFrames(60, () => {
-                CardOptionRegistry.RegisterAllCardOptions();
-                CardOptionsConfigManager.RegisterConfig();
-                
-                CardDataEditorMenu.Instance.Init(CardOptionsConfigManager.Config);
-                CardsListContextMenu.Instance.Init(CardOptionsConfigManager.Config);
-            });
+            StartCoroutine(InitializeData());
 
             Unbound.RegisterHandshake(ModId, OnHandShakeCompleted);
 
@@ -80,6 +76,20 @@ namespace CardDataEditor {
             CreateCardDataEditorCanvas();
         }
 
+        private IEnumerator InitializeData() {
+            // Wait for 60 frames to ensure that all other mods have loaded and initialized their cards, otherwise we will get issues with missing cards.
+            for (int i = 0; i < 60; i++) {
+                yield return null;
+            }
+            // We have to wait until the classes are initialized before we can register our card options and config, otherwise we will get issus.
+            yield return new WaitUntil(() => ClassesInitialized);
+
+            CardOptionRegistry.RegisterAllCardOptions();
+            CardOptionsConfigManager.RegisterConfig();
+
+            CardDataEditorMenu.Instance.Init(CardOptionsConfigManager.Config);
+            CardsListContextMenu.Instance.Init(CardOptionsConfigManager.Config);
+        }
 
         private void CreateCardDataEditorCanvas() {
             if (CardDataEditorMenu.Instance != null) return;

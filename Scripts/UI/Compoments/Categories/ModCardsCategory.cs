@@ -24,7 +24,7 @@ namespace CardDataEditor.UI.Compoments.Categories {
         private readonly Dictionary<string, UICategory> Subcategories = new Dictionary<string, UICategory>();
         private readonly Dictionary<CardButton, UICategory> ButtonsToCategory = new Dictionary<CardButton, UICategory>();
 
-        private static readonly bool toggleCardCategoriesExist = CardDataEditor.Plugins.Exists(plugin => plugin.Info.Metadata.GUID == "com.aalund13.rounds.toggle_cards_categories");
+        private readonly bool toggleCardCategoriesExist = CardDataEditor.Plugins.Exists(plugin => plugin.Info.Metadata.GUID == "com.aalund13.rounds.toggle_cards_categories");
 
         private void Awake() {
             gameObject.SetActive(false);
