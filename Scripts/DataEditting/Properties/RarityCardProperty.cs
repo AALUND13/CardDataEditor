@@ -46,8 +46,10 @@ namespace CardDataEditor.DataEditting.Properties {
         public override void ApplyPropertyToPreviewCard(GameObject toggleCardObject, CardInfo toggleCardInfo) {
             toggleCardInfo.rarity = GetPropertyTyped();
 
-            var rarityColors = toggleCardObject.GetComponentsInChildren<CardRarityColor>(false).ToList();
-            rarityColors.ForEach(r => r.Toggle(true));
+            if(toggleCardObject.activeInHierarchy) {
+                var rarityColors = toggleCardObject.GetComponentsInChildren<CardRarityColor>(false).ToList();
+                rarityColors.ForEach(r => r.Toggle(true));
+            }
         }
 
 
